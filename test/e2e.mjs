@@ -274,6 +274,15 @@ try {
   assert(await A.locator('td:has-text("14")').count());
   ok('Tiada CC 24 jam → bermasalah → admin sahkan manual; prestasi');
 
+  // 17. Admin padam permohonan ujian → agensi bebas
+  await A.goto(URL0 + `#/p/${p7}`); await A.click('summary:has-text("padam permohonan")');
+  A.once('dialog', d => d.accept()); await A.click('button:has-text("Padam permohonan")'); await A.waitForURL('**#/admin/permohonan');
+  assert.equal((await j(`${FS}/permohonan/${p7}`, { headers: owner })).status, 404);
+  assert.equal(field(await getDoc('agensi/sekolah_menengah_kebangsaan_mersing'), 'status'), 'dipadam');
+  await abu.goto(URL0 + '#/baru'); await abu.fill('#namaAgensi', 'SMK Mersing'); await abu.waitForSelector('#semak .alert.warn');
+  assert(!(await abu.locator('#btn-jana').isDisabled()));
+  ok('Admin padam permohonan → agensi dibuka semula');
+
   console.log(`\nSEMUA ${n} UJIAN LULUS`);
 } catch (e) {
   console.error('\n✕ GAGAL:', e); process.exitCode = 1;

@@ -516,7 +516,10 @@ r('/p/:id', async ({ id }, q) => {
   if (p.status === 'dilepaskan') main = `<div class="alert warn"><div class="h">Dilepaskan</div><div class="small">${U.LUPUT_HARI} hari tiada tindakan (${U.tarikh(p.closedAt)}). Agensi kini terbuka untuk ejen lain.</div></div>`;
   const regen = p.owner && ['surat_siap', 'dah_email'].includes(p.status) && (p.snapNama !== me.nama || p.log?.some(l => l.teks.startsWith('Dipindah')))
     ? `<button class="btn o sm" data-act="janaSemula" data-id="${p.id}" data-confirm="Jana semula surat dengan nama, telefon & tandatangan anda?">↻ Jana semula surat dengan tandatangan saya</button>` : '';
-  return render({ title: p.namaSingkat || p.namaAgensi, back: p.owner ? '#/dashboard' : '#/admin/permohonan', body: info + main + regen + sejarahHtml(p) });
+  const padam = isAdmin(me) ? `<details style="margin-top:24px"><summary class="small muted">Admin: padam permohonan</summary>
+    <p class="small muted">Untuk data ujian / tersilap isi. Permohonan ${p.id} akan dipadam terus dan agensi ini dibuka semula untuk semua ejen.</p>
+    <button class="btn r sm" data-act="padam" data-id="${p.id}" data-confirm="PADAM terus permohonan ${esc(p.namaAgensi)} (${p.id})? Tindakan ini tidak boleh dibatalkan.">🗑 Padam permohonan</button></details>` : '';
+  return render({ title: p.namaSingkat || p.namaAgensi, back: p.owner ? '#/dashboard' : '#/admin/permohonan', body: info + main + regen + sejarahHtml(p) + padam });
 });
 
 ACTS.pdf = async ({ id }) => {
@@ -534,6 +537,7 @@ ACTS.pdf = async ({ id }) => {
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nama; document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 60000);
 };
+ACTS.padam = async ({ id }) => { const p = await DB.getPermohonan(id); await DB.padamPermohonan(p); setFlash(`${p.namaAgensi} (${id}) dipadam.`); go('#/admin/permohonan'); };
 ACTS.janaSemula = async ({ id }) => { const p = await DB.getPermohonan(id); await DB.janaSemula(p, me); setFlash('Surat dijana semula.'); route(); };
 
 // ---------- RANGKA EMAIL ----------

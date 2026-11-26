@@ -201,6 +201,21 @@ export async function lepasJikaLuput(p) {
 }
 
 // ---------- ADMIN ----------
+// Admin padam permohonan (cth data ujian). Agensi dibebaskan semula.
+export async function padamPermohonan(p) {
+  const agRef = d('agensi', p.agensiId);
+  const ag = data(await getDoc(agRef));
+  const b = writeBatch(fs);
+  b.delete(d('permohonan', p.id, 'rahsia', 'sig'));
+  b.delete(d('permohonan', p.id));
+  if (ag && ag.pid === p.id) {
+    if ((ag.sejarah || []).length) b.update(agRef, { status: 'dipadam', pid: null });
+    else b.delete(agRef);
+  }
+  await b.commit();
+  cacheAg = null;
+}
+
 export const senaraiEjen = async () => (await getDocs(collection(fs, 'users'))).docs.map(data);
 const ubahUser = (uid, upd) => updateDoc(d('users', uid), { ...upd, updatedAt: ts() });
 export const lulus = (uid, me) => ubahUser(uid, { status: 'aktif', sebab: null, approvedBy: me.nama, approvedAt: ts() });

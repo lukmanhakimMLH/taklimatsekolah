@@ -85,7 +85,8 @@ service cloud.firestore {
       allow update: if isAdmin() || isRobot()
         || (isAktif() && resource.data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid)
         || (isAktif() && request.resource.data.uid == request.auth.uid
-            && (resource.data.status in ['tak_berjaya', 'dilepaskan'] || luput(resource.data)));
+            && (resource.data.status in ['tak_berjaya', 'dilepaskan', 'dipadam'] || luput(resource.data)));
+      allow delete: if isAdmin();
     }
 
     // ---------- PERMOHONAN ----------
@@ -96,6 +97,7 @@ service cloud.firestore {
         && getAfter(/databases/$(db)/documents/agensi/$(request.resource.data.agensiId)).data.pid == pid
         && getAfter(/databases/$(db)/documents/meta/counter).data.n == int(pid.split('-')[1]);
       allow update: if isAdmin() || isRobot();
+      allow delete: if isAdmin();
       allow update: if isAktif() && resource.data.uid == request.auth.uid && ownerOk();
       // ejen lain mengambil alih agensi yang luput
       allow update: if isAktif() && luput(resource.data)
@@ -106,6 +108,7 @@ service cloud.firestore {
         allow read: if signedIn() && (get(/databases/$(db)/documents/permohonan/$(pid)).data.uid == request.auth.uid || isAdmin());
         allow create: if isAktif() && getAfter(/databases/$(db)/documents/permohonan/$(pid)).data.uid == request.auth.uid;
         allow update: if isAktif() && get(/databases/$(db)/documents/permohonan/$(pid)).data.uid == request.auth.uid;
+        allow delete: if isAdmin();
       }
     }
     function ownerOk() {
