@@ -51,11 +51,12 @@ th{background:var(--bg)}
 
 <!-- 1. COVER + FLOW -->
 <div class="page">
-  <div class="hdr"><h1>Rangka Apps Taklimat Agensi</h1><span class="no">Draf 1 · 26/11/2026</span></div>
+  <div class="hdr"><h1>Rangka Apps Taklimat Agensi</h1><span class="no">Draf 2 · 26/11/2026</span></div>
   <p style="font-size:12.5px;max-width:200mm;line-height:1.55;margin-bottom:14px">Apps untuk ejen mohon taklimat ke agensi kerajaan &amp; swasta. Ejen isi maklumat agensi, apps jana surat PDF, ejen hantar email, buat follow up, dan rekod sama ada dapat taklimat atau tak berjaya. Ramai ejen guna serentak, jadi satu agensi hanya boleh dipegang oleh <b>seorang ejen</b> sahaja.</p>
 
   <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--pri);margin-bottom:8px">Aliran utama</div>
   <div style="display:flex;gap:8px;align-items:stretch;margin-bottom:8px">
+    <div class="flowbox" style="flex:.9;background:#f1ecfb">0. Daftar Ejen<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Detail + tandatangan</div></div><div class="arrow">→</div>
     <div class="flowbox" style="flex:1">1. Dashboard<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Detail ejen + ringkasan</div></div><div class="arrow">→</div>
     <div class="flowbox" style="flex:1;background:var(--blue2)">2. Permohonan Baru<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Isi 5 maklumat · semak bertindan</div></div><div class="arrow">→</div>
     <div class="flowbox" style="flex:1;background:var(--blue2)">3. Surat PDF<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Download · tekan DAH EMAIL</div></div><div class="arrow">→</div>
@@ -87,6 +88,97 @@ th{background:var(--bg)}
       </ul>
       <h3>Peranan</h3>
       <ul><li><b>Ejen</b> – nampak permohonan sendiri.</li><li><b>Admin</b> (cadangan) – nampak semua ejen &amp; statistik.</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 1b. DAFTAR EJEN + SIGN -->
+<div class="page">
+  <div class="hdr"><h1>Skrin 0 · Daftar Ejen &amp; Tandatangan</h1><span class="no">Wajib sebelum boleh buat permohonan</span></div>
+  <div class="row">
+    <div>
+      <div class="phone">
+        <div class="sb"><span>09:58</span><span>4G ▮</span></div>
+        <div class="top"><span>Lengkapkan Profil Ejen</span></div>
+        <div class="body">
+          <div style="display:flex;gap:4px;margin-bottom:8px"><div style="flex:1;height:4px;border-radius:2px;background:var(--pri)"></div><div style="flex:1;height:4px;border-radius:2px;background:var(--line)"></div></div>
+          <div class="muted" style="font-size:8px;margin-bottom:6px">Langkah 1 / 2 · Maklumat diri</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--pri2);border:2px dashed var(--pri);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--pri)">📷</div>
+            <div class="muted" style="font-size:8.5px">Gambar profil<br>(pilihan)</div>
+          </div>
+          <div class="lbl">Nama Penuh (seperti dalam surat) *</div><div class="inp">Mohamad Lukman Hakim bin Md Zaki</div>
+          <div class="lbl">Jawatan *</div><div class="inp">Pegawai Qaizer Consultancy</div>
+          <div class="lbl">No. Telefon *</div><div class="inp">019-7784918</div>
+          <div class="lbl">Email *</div><div class="inp">lukman@contoh.com</div>
+          <div class="lbl">Cawangan / Kawasan</div><div class="inp">Johor – Mersing ▾</div>
+          <div class="btn">SETERUSNYA → TANDATANGAN</div>
+        </div>
+      </div>
+      <div class="cap">Langkah 1 – Maklumat ejen</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>09:59</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Tandatangan</span></div>
+        <div class="body">
+          <div style="display:flex;gap:4px;margin-bottom:8px"><div style="flex:1;height:4px;border-radius:2px;background:var(--pri)"></div><div style="flex:1;height:4px;border-radius:2px;background:var(--pri)"></div></div>
+          <div class="muted" style="font-size:8px;margin-bottom:6px">Langkah 2 / 2 · Tandatangan guna jari</div>
+          <div style="background:#fff;border:1.5px dashed var(--mute);border-radius:10px;height:150px;position:relative">
+            <svg viewBox="0 0 200 120" style="position:absolute;inset:0;width:100%;height:100%">
+              <path d="M22 78 C30 40 42 30 46 52 C50 74 40 92 52 80 C64 68 70 46 78 56 C84 64 80 82 92 74 C104 66 106 50 116 58 C124 64 118 80 132 72 C150 62 158 50 176 46" fill="none" stroke="#14306b" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M60 92 C90 86 130 84 170 80" fill="none" stroke="#14306b" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            <div style="position:absolute;left:12px;right:12px;bottom:22px;border-top:1px solid var(--line)"></div>
+            <div style="position:absolute;left:12px;bottom:8px;font-size:7.5px;color:var(--mute)">✕ Tandatangan di atas garisan</div>
+          </div>
+          <div class="two" style="margin-top:6px"><div class="btn o">↺ Padam</div><div class="btn o">⬆ Muat naik gambar</div></div>
+          <div class="card" style="margin-top:8px;padding:7px;font-size:8px;background:var(--amber2);border-color:#f0d9a8">Tandatangan ini akan dicetak secara automatik dalam <b>setiap surat</b> yang anda jana.</div>
+          <label style="font-size:8.5px;display:flex;gap:5px;align-items:flex-start"><span style="display:inline-block;width:10px;height:10px;border:1.5px solid var(--pri);background:var(--pri);border-radius:2px;flex:none;margin-top:1px"></span>Saya sahkan ini tandatangan saya sendiri.</label>
+          <div class="btn">SIMPAN &amp; MULA</div>
+        </div>
+      </div>
+      <div class="cap">Langkah 2 – Tandatangan</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:07</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Surat (bahagian bawah)</span></div>
+        <div class="body">
+          <div style="background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 10px;font-size:7px;line-height:1.5;box-shadow:0 2px 6px rgba(0,0,0,.08)">
+            <div>4. Segala kerjasama dan perhatian yang diberikan tuan/puan dalam perkara ini amatlah kami sanjung tinggi dan diakhiri dengan ucapan ribuan terima kasih.</div>
+            <div style="margin-top:10px">Yang Menjalankan Tugas,</div>
+            <div style="background:#e6eefb;border-radius:4px;width:120px;height:50px;margin:4px 0">
+              <svg viewBox="0 0 200 120" style="width:100%;height:100%"><path d="M22 78 C30 40 42 30 46 52 C50 74 40 92 52 80 C64 68 70 46 78 56 C84 64 80 82 92 74 C104 66 106 50 116 58 C124 64 118 80 132 72 C150 62 158 50 176 46" fill="none" stroke="#14306b" stroke-width="3" stroke-linecap="round"/><path d="M60 92 C90 86 130 84 170 80" fill="none" stroke="#14306b" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <div style="background:#e6eefb;display:inline-block;padding:0 2px">Nama : Mohamad Lukman Hakim bin Md Zaki</div><br>
+            <div style="background:#e6eefb;display:inline-block;padding:0 2px;margin-top:1px">Pegawai Qaizer Consultancy</div>
+          </div>
+          <div class="muted" style="font-size:8px;margin-top:8px;line-height:1.5"><span style="background:#e6eefb;padding:0 3px">Biru</span> = dari profil ejen: tandatangan, nama, jawatan &amp; no. telefon (perenggan 3).</div>
+          <div class="btn b" style="margin-top:8px">⬇ DOWNLOAD PDF</div>
+        </div>
+      </div>
+      <div class="cap">Hasil – tandatangan dalam surat</div>
+    </div>
+    <div class="notes">
+      <h3>Bila ejen isi</h3>
+      <ul>
+        <li>Kali pertama log masuk → terus ke skrin ini.</li>
+        <li><b>Tak boleh buat permohonan</b> selagi profil &amp; tandatangan belum lengkap.</li>
+        <li>Boleh kemas kini kemudian melalui menu <b>Profil</b> (cth tukar tandatangan / no. telefon).</li>
+      </ul>
+      <h3>Maklumat ejen</h3>
+      <ul><li>Nama penuh, jawatan, telefon, email – wajib.</li><li>Gambar &amp; cawangan – pilihan.</li></ul>
+      <h3>Tandatangan</h3>
+      <ul>
+        <li>Lukis guna jari terus di skrin, <b>atau</b> muat naik gambar tandatangan atas kertas putih.</li>
+        <li>Disimpan sebagai gambar latar telus (PNG), diletak di atas “Nama :” dalam surat.</li>
+        <li>Surat yang <b>dah dijana</b> kekal dengan tandatangan lama walaupun ejen tukar kemudian.</li>
+      </ul>
+      <h3>Keselamatan</h3>
+      <ul><li>Hanya ejen itu sendiri boleh guna tandatangannya – ejen lain tak nampak / tak boleh guna.</li></ul>
+      <h3>Soalan untuk anda</h3>
+      <ul><li>Jawatan sama untuk semua ejen (“Pegawai Qaizer Consultancy”) atau setiap ejen isi sendiri?</li><li>Perlu No. IC ejen dalam profil?</li></ul>
     </div>
   </div>
 </div>
@@ -272,7 +364,7 @@ th{background:var(--bg)}
       </ul>
       <h3>Soalan untuk anda</h3>
       <ul><li>Tajuk / objektif taklimat sentiasa sama (Harta Pusaka &amp; Hutang + Semakan Gaji)? Atau ejen boleh pilih jenis taklimat?</li>
-      <li>Setiap ejen guna nama sendiri dalam surat, kan?</li></ul>
+      <li>Tandatangan, nama &amp; telefon ejen diambil dari profil (Skrin 0).</li></ul>
     </div>
   </div>
 </div>
@@ -418,8 +510,8 @@ th{background:var(--bg)}
       <h3>Rekod yang disimpan</h3>
       <table>
         <tr><th style="width:26%">Jadual</th><th>Medan</th></tr>
-        <tr><td><b>Ejen</b></td><td>nama penuh, jawatan, telefon, email, gambar, peranan (ejen/admin)</td></tr>
-        <tr><td><b>Permohonan</b></td><td>nama agensi, <i>nama agensi (dinormalkan, unik)</i>, alamat, telefon, PIC, email, ejen, status, tarikh dijana, tarikh dah email</td></tr>
+        <tr><td><b>Ejen</b></td><td>nama penuh, jawatan, telefon, email, gambar, cawangan, <b>tandatangan (PNG)</b>, peranan (ejen/admin)</td></tr>
+        <tr><td><b>Permohonan</b></td><td>salinan PDF surat (beserta tandatangan masa dijana), nama agensi, <i>nama agensi (dinormalkan, unik)</i>, alamat, telefon, PIC, email, ejen, status, tarikh dijana, tarikh dah email</td></tr>
         <tr><td><b>Follow Up</b></td><td>permohonan, kali ke-N, cara, nota, tarikh/masa, tarikh ingatan</td></tr>
         <tr><td><b>Taklimat</b></td><td>permohonan, tarikh, masa, penceramah, lokasi, peserta</td></tr>
         <tr><td><b>Tak Berjaya</b></td><td>permohonan, sebab, nota, tarikh</td></tr>
@@ -437,6 +529,7 @@ th{background:var(--bg)}
       <h3>Senarai soalan untuk anda sahkan</h3>
       <ol style="padding-left:16px">
         <li>Maksud kotak ketiga di dashboard – senarai Follow Up?</li>
+        <li>Jawatan ejen tetap atau isi sendiri? Perlu No. IC?</li>
         <li>Agensi Tak Berjaya boleh dibuka semula untuk ejen lain?</li>
         <li>Ada tempoh luput untuk agensi yang lama tiada tindakan?</li>
         <li>Tajuk taklimat tetap, atau ada beberapa jenis?</li>
