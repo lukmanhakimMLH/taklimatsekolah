@@ -31,7 +31,6 @@ export function kandungan(p, signature) {
       { t: 'b', items: [
         `Membantu warga ${singkat} memahami kepentingan pengurusan harta pusaka, wasiat dan hibah.`,
         'Memberi kesedaran tentang pengurusan hutang serta kesan hutang tertunggak kepada waris dan pembahagian harta pusaka.',
-        `Membantu warga ${singkat} membuat semakan potongan gaji (SPGA) supaya setiap potongan melalui Biro Angkasa difahami dengan jelas.`,
         `Membantu warga ${singkat} menyediakan dana yang cukup sekiranya berlaku risiko kematian atau hilang upaya kekal, dengan cara yang lebih sistematik, berdisiplin dan pada kadar yang berpatutan.`,
       ] },
       { t: 'p', text: `Kejayaan program ini berupaya membantu warga ${singkat} mengurus kewangan dengan lebih teratur, merancang harta untuk waris dan bersedia sekiranya berlaku risiko kematian atau hilang upaya kekal.` },

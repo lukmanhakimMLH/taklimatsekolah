@@ -148,7 +148,7 @@ try {
   assert(buf.slice(0, 4).toString() === '%PDF' && buf.length > 3000);
   assert.equal(dl.suggestedFilename(), 'Politeknik_Mersing.pdf');
   assert.equal(execFileSync('pdfinfo', [pdfPath]).toString().match(/Pages:\s+(\d+)/)[1], '9');
-  assert(!execFileSync('pdftotext', [pdfPath, '-']).toString().includes('Semakan Gaji'));
+  { const tx = execFileSync('pdftotext', ['-l', '7', pdfPath, '-']).toString(); assert(!/semakan gaji|potongan gaji|SPGA/i.test(tx), 'masih ada semakan gaji'); }
   if (SHOTS) fs.copyFileSync(pdfPath, path.join(SHOTS, 'contoh-surat.pdf'));
   ok(`PDF penuh (surat + kertas kerja + lampiran, 9 ms) dijana dalam telefon (${Math.round(buf.length / 1024)} KB)`);
 
