@@ -386,9 +386,13 @@ r('/baru', () => render({ title: 'Permohonan Baru', back: '#/dashboard', body: `
     <textarea id="alamat" name="alamat" required data-lock placeholder="Jalan Ismail,&#10;86800 Mersing, Johor."></textarea>
     <label for="telefon">No. telefon *</label>
     <input id="telefon" name="telefon" required inputmode="tel" data-lock>
-    <label for="pic">Person in charge (PIC) *</label>
-    <input id="pic" name="pic" required data-lock placeholder="cth: Pegawai Kesihatan Daerah">
-    <div class="tiny muted">Nama / jawatan penerima surat.</div>
+    <label for="pic">Jawatan penerima (PIC) *</label>
+    <input id="pic" name="pic" required data-lock placeholder="cth: Ketua Imigresen Mersing / Ketua Cawangan">
+    <label for="picNama">Nama pegawai penerima (pilihan)</label>
+    <input id="picNama" name="picNama" data-lock placeholder="cth: TPPK Mohd Azrul bin Mat Nor">
+    <div class="tiny muted">Dicetak tebal di bawah jawatan dalam surat &amp; di kulit kertas kerja.</div>
+    <label>Panggilan dalam surat</label>
+    <div class="seg">${S.PANGGILAN.map((x, i) => `<label><input type="radio" name="panggilan" value="${x}" ${i === 2 ? 'checked' : ''} data-lock><span>${x}</span></label>`).join('')}</div>
     <label for="emailA">Email agensi *</label>
     <input id="emailA" name="email" type="email" required data-lock>
   </div>
@@ -409,7 +413,7 @@ function initSemak() {
   ag.addEventListener('input', () => { clearTimeout(t); t = setTimeout(check, 600); });
 }
 FORMS.baru = async v => {
-  const val = { namaAgensi: v.namaAgensi.trim(), namaSingkat: (v.namaSingkat || '').trim(), alamat: (v.alamat || '').trim(), telefon: (v.telefon || '').trim(), pic: (v.pic || '').trim(), email: (v.email || '').trim() };
+  const val = { namaAgensi: v.namaAgensi.trim(), namaSingkat: (v.namaSingkat || '').trim(), alamat: (v.alamat || '').trim(), telefon: (v.telefon || '').trim(), pic: (v.pic || '').trim(), picNama: (v.picNama || '').trim(), panggilan: v.panggilan || 'Tuan/Puan', email: (v.email || '').trim() };
   if (!me.signature) { setFlash('Sila lengkapkan tandatangan dalam profil dahulu.', 'err'); return go('#/profil'); }
   try {
     const pid = await DB.buatPermohonan(me, val);
@@ -467,7 +471,7 @@ r('/p/:id', async ({ id }, q) => {
   const info = `<div class="card small">
     <div style="display:flex;justify-content:space-between;gap:8px"><b style="font-size:16px">${esc(p.namaAgensi)}</b>${pill(p.status)}</div>
     <div class="muted tiny">${p.id}${!p.owner ? ` · 👤 ${esc(p.ejenNama)} (${esc(p.ejenKod)})` : ''}</div>
-    <div style="margin-top:6px">PIC: ${esc(p.pic)}<br>☎ <a href="tel:${esc(p.telefon)}">${esc(p.telefon)}</a> · ✉ <a href="mailto:${esc(p.email)}">${esc(p.email)}</a><br><span class="muted">${esc(U.alamatSebaris(p.alamat))}</span></div>
+    <div style="margin-top:6px">PIC: ${p.picNama ? `<b>${esc(p.picNama)}</b>, ` : ''}${esc(p.pic)}<br>☎ <a href="tel:${esc(p.telefon)}">${esc(p.telefon)}</a> · ✉ <a href="mailto:${esc(p.email)}">${esc(p.email)}</a><br><span class="muted">${esc(U.alamatSebaris(p.alamat))}</span></div>
   </div>`;
   let main = '';
   const pdfBtn = `<button class="btn b" data-act="pdf" data-id="${p.id}">⬇ DOWNLOAD PDF</button>`;
@@ -517,15 +521,18 @@ r('/p/:id', async ({ id }, q) => {
 
 ACTS.pdf = async ({ id }) => {
   const p = await DB.getPermohonan(id), sig = await DB.getSig(id);
-  const doc = S.pdf(p, sig);
+  const btn = document.activeElement; const asal = btn?.textContent; if (btn?.dataset.act === 'pdf') { btn.disabled = true; btn.textContent = 'Menjana PDF…'; }
+  let bytes;
+  try { bytes = await S.pakej(p, sig); } finally { if (btn?.dataset.act === 'pdf') { btn.disabled = false; btn.textContent = asal; } }
   const nama = S.namaFail(p);
-  const blob = doc.output('blob');
+  const blob = new Blob([bytes], { type: 'application/pdf' });
   // Telefon: guna menu Kongsi (boleh terus ke Gmail/WhatsApp); komputer: muat turun
   const file = new File([blob], nama, { type: 'application/pdf' });
   if (navigator.canShare && navigator.canShare({ files: [file] }) && /Mobi|Android|iPhone/i.test(navigator.userAgent) && !window.__NOSHARE) {
     try { await navigator.share({ files: [file], title: nama }); return; } catch (e) { if (e.name === 'AbortError') return; }
   }
-  doc.save(nama);
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = nama; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
 };
 ACTS.janaSemula = async ({ id }) => { const p = await DB.getPermohonan(id); await DB.janaSemula(p, me); setFlash('Surat dijana semula.'); route(); };
 

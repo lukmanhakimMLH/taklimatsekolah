@@ -122,7 +122,7 @@ export async function buatPermohonan(me, v) {
     tx.set(pRef, {
       uid: me.id, ejenNama: me.nama, ejenKod: me.kodEjen, ejenEmail: me.email,
       namaAgensi: v.namaAgensi, namaSingkat: v.namaSingkat || null, norm, agensiId: aid,
-      alamat: v.alamat, telefon: v.telefon, pic: v.pic, email: v.email.toLowerCase(),
+      alamat: v.alamat, telefon: v.telefon, pic: v.pic, picNama: v.picNama || null, panggilan: v.panggilan || 'Tuan/Puan', email: v.email.toLowerCase(),
       status: 'surat_siap', tarikhSurat: ts(), snapNama: me.nama, snapTelefon: me.telefon,
       emailStatus: null, emailMarkedAt: null, emailVerifiedAt: null, emailVerifiedBy: null, emailIssue: null, emailInfo: null,
       takSebab: null, takNota: null, closedAt: null, taklimat: null, amaran: 0,

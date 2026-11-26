@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ms"><head><meta charset="utf-8"><title>Kertas Kerja – Templat</title>
+<!--
+  Templat kertas kerja cadangan. JANGAN buka dalam apps – fail ini ditukar ke aset/kertas-kerja.pdf
+  oleh `node alat/bina-kertas-kerja.mjs`. Ruang [data-stamp] dibiarkan kosong; apps mengisinya
+  (nama pegawai agensi, nama ejen, tandatangan, tarikh) semasa jana PDF.
+-->
+<style>
+@font-face{font-family:Lora;src:url(../aset/fon/Lora-Regular.ttf);font-weight:400}
+@font-face{font-family:Lora;src:url(../aset/fon/Lora-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Lora;src:url(../aset/fon/Lora-Italic.ttf);font-style:italic}
+@font-face{font-family:Inter;src:url(../aset/fon/Inter-Regular.ttf);font-weight:400}
+@font-face{font-family:Inter;src:url(../aset/fon/Inter-Medium.ttf);font-weight:500}
+@font-face{font-family:Inter;src:url(../aset/fon/Inter-SemiBold.ttf);font-weight:600}
+@font-face{font-family:Inter;src:url(../aset/fon/Inter-Bold.ttf);font-weight:700}
+@page{size:A4;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#c8102e;--red2:#8e0c22;--maroon:#7a0a1e;--ink:#1d1d1f;--mute:#5f6168;--line:#e4e4e7;--pink:#fdecef;--pink2:#fff5f7}
+body{font-family:Inter;color:var(--ink);font-size:12px;line-height:1.75;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:794px;height:1123px;position:relative;overflow:hidden;page-break-after:always;padding:56px 62px 0}
+.page:last-child{page-break-after:auto}
+.serif{font-family:Lora}
+/* ---- kepala & kaki ---- */
+.hd{display:flex;align-items:center;gap:8px;font-size:8.2px;letter-spacing:1.6px;color:var(--mute);text-transform:uppercase;padding-bottom:12px;border-bottom:1px solid var(--line);margin-top:-32px;margin-bottom:24px}
+.hd img{width:22px;height:22px}
+.hd b{color:var(--maroon);font-weight:700}
+.hd .r{margin-left:auto}
+.ft{position:absolute;left:62px;right:62px;bottom:30px;display:flex;justify-content:space-between;font-size:7.8px;color:var(--mute);letter-spacing:.3px}
+.ft b{color:var(--red);font-weight:700}
+h2{font-family:Lora;font-weight:400;color:var(--maroon);font-size:23px;display:flex;align-items:baseline;gap:12px;margin:6px 0 16px;line-height:1.3}
+h2 .n{font-size:14px;color:var(--red)}
+.lbl{font-size:8px;letter-spacing:2.4px;font-weight:700;color:var(--red);text-transform:uppercase}
+p{text-align:justify;margin-bottom:10px}
+/* ---- kulit ---- */
+.cover{padding:0}
+.cover .red{height:728px;background:linear-gradient(160deg,#d4142f 0%,#b70f28 55%,#9a0d22 100%);color:#fff;padding:88px 66px 0;position:relative}
+.cover .red:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 2px,transparent 2px 26px);pointer-events:none}
+.cover .band{height:10px;background:#6d0818}
+.cover .k1{display:flex;align-items:center;gap:12px;font-size:9px;letter-spacing:3.6px;font-weight:700}
+.cover .k1 i{display:block;width:100px;height:1px;background:#fff}
+.cover .logo{position:absolute;right:70px;top:70px;width:122px;height:122px;border-radius:50%;border:5px solid #fff;overflow:hidden;background:#111}
+.cover .logo img{width:100%;height:100%}
+.cover .k2{margin-top:100px;font-size:9px;letter-spacing:3.6px;font-weight:700;opacity:.92}
+.cover h1{font-family:Lora;font-weight:600;font-size:40px;line-height:1.12;margin-top:22px}
+.cover h1 em{font-weight:400;font-style:italic}
+.cover .sub{font-size:14px;line-height:1.65;margin-top:24px;max-width:560px;opacity:.95}
+.cover .stat{display:flex;align-items:center;gap:22px;margin-top:56px}
+.cover .stat b{font-family:Lora;font-weight:600;font-size:38px}
+.cover .stat span{border-left:1px solid rgba(255,255,255,.6);padding-left:22px;font-size:11.5px;line-height:1.6;max-width:300px}
+.cover .kepada{position:absolute;left:78px;right:78px;top:752px;height:142px;border:1.5px solid var(--red);border-radius:3px;padding:18px 22px}
+.cover .bawah{position:absolute;left:78px;right:78px;top:922px;display:flex;align-items:flex-start;gap:14px}
+.cover .bawah img{width:58px;height:58px}
+.cover .bawah .q b{font-family:Lora;font-weight:600;color:var(--maroon);font-size:18px;display:block;line-height:1.2}
+.cover .bawah .q i{font-style:normal;color:var(--red);font-weight:700;font-size:10.5px;display:block;margin-top:4px}
+.cover .bawah .q span{color:var(--mute);font-size:9.6px;display:block;max-width:300px;line-height:1.6;margin-top:3px}
+.cover .sedia{margin-left:auto;text-align:right;font-size:9.6px;color:var(--mute);width:170px}
+/* ---- kotak ---- */
+.ring{background:var(--pink);border-left:4px solid var(--red);border-radius:3px;padding:20px 22px 14px;margin-bottom:30px}
+.ring .g{display:grid;grid-template-columns:1fr 1fr;column-gap:30px;row-gap:12px;margin-top:14px}
+.ring .g b{display:block;font-size:7.8px;letter-spacing:1.6px;color:var(--red);font-weight:700}
+.ring .g div{font-size:11.6px;line-height:1.6}
+.lead{color:var(--maroon);font-size:13.5px;line-height:1.7;margin-bottom:16px}
+.statbox{background:linear-gradient(120deg,#c8102e,#8e0c22);color:#fff;border-radius:4px;padding:22px 22px;display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.statbox b{font-family:Lora;font-weight:400;font-size:30px;white-space:nowrap}
+.statbox span{font-size:11.6px;line-height:1.7}
+.obj{display:grid;grid-template-columns:44px 1fr;padding:14px 0;border-bottom:1px solid var(--line);font-size:12.2px;line-height:1.75}
+.obj .n{font-family:Lora;color:var(--red);font-size:13px}
+.obj b{color:var(--maroon);font-weight:700}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pinkbox{background:var(--pink2);border-radius:4px;padding:18px 18px 16px}
+.pinkbox h4{font-family:Lora;font-weight:600;color:var(--maroon);font-size:13.5px;margin-bottom:8px}
+.pinkbox ul{padding-left:14px}
+.card{border:1px solid var(--line);border-radius:4px;padding:18px 20px 16px 20px;margin-bottom:16px;position:relative}
+.card:before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:3px;background:var(--red)}
+.card h3{font-family:Lora;font-weight:400;color:var(--maroon);font-size:16px;margin:4px 0 8px}
+.card ul{list-style:none}
+.card li{position:relative;padding-left:16px;margin-bottom:6px;line-height:1.7}
+.card li:before{content:"";position:absolute;left:2px;top:7px;width:5px;height:5px;background:var(--red);transform:rotate(45deg)}
+.manfaat{display:grid;grid-template-columns:1fr 1fr;column-gap:20px}
+.manfaat div{border-top:1.5px solid var(--red);padding:12px 0 14px}
+.manfaat div:nth-child(-n+2){border-top-color:var(--maroon)}
+.manfaat h4{font-family:Lora;font-weight:600;color:var(--maroon);font-size:13.5px;margin-bottom:4px}
+.manfaat p{text-align:left;color:#3a3a3f;font-size:11.4px;line-height:1.65;margin:0}
+table{border-collapse:collapse;width:100%;font-size:11.6px}
+th{background:var(--maroon);color:#fff;text-align:left;font-size:8px;letter-spacing:1.6px;padding:10px 12px}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+td:first-child{font-weight:600;width:34%}
+tr:nth-child(even) td{background:#f7f7f9}
+.kes{background:linear-gradient(120deg,#c8102e,#8e0c22);color:#fff;border-radius:4px;padding:24px 26px 18px;margin:26px 0 18px;position:relative}
+.kes h3{font-family:Lora;font-weight:600;font-size:16px;margin-bottom:14px}
+.kes p{font-size:11.6px;line-height:1.85}
+.kes img{position:absolute;right:24px;top:20px;width:42px;height:42px;border-radius:50%;border:2px solid #fff}
+.sign{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.sign .box{border:1px solid var(--line);border-radius:4px;padding:16px 18px;height:236px;position:relative}
+.sign .box img{position:absolute;right:16px;top:12px;width:36px;height:36px}
+.sign dl{display:grid;grid-template-columns:62px 1fr;row-gap:6px;font-size:10.8px;margin-top:8px}
+.sign dt{color:var(--mute)}
+.sign dd{font-weight:600}
+.sign .dots dd{border-bottom:1px dotted #999;height:18px}
+.chk{display:flex;gap:16px;font-size:9.8px;margin-top:10px}
+.chk span:before{content:"";display:inline-block;width:9px;height:9px;border:1.3px solid var(--red);margin-right:6px;vertical-align:-1px}
+[data-stamp]{/* ruang diisi oleh apps */}
+</style></head><body>
+
+<!-- ============ KULIT ============ -->
+<section class="page cover">
+  <div class="red">
+    <div class="k1">KERTAS KERJA CADANGAN <i></i></div>
+    <div class="logo"><img src="../aset/qaizer-bulat.png" alt=""></div>
+    <div class="k2">PROGRAM KESEDARAN KEWANGAN WARGA KERJA</div>
+    <h1>Taklimat Pengurusan<br>Harta Pusaka<br><em>&amp; Pengurusan Hutang</em></h1>
+    <div class="sub">Program kesedaran dan khidmat nasihat tentang wasiat, hibah dan pengurusan hutang untuk seluruh warga kerja jabatan dan agensi kerajaan.</div>
+    <div class="stat"><b>RM90 bilion+</b><span>anggaran nilai harta pusaka yang tidak dituntut dan terbeku di Malaysia.</span></div>
+  </div>
+  <div class="band"></div>
+  <div class="kepada">
+    <div class="lbl" style="color:#5f6168">DICADANGKAN KEPADA</div>
+    <div data-stamp="kepada" style="position:absolute;left:22px;right:22px;top:40px;bottom:12px"></div>
+  </div>
+  <div class="bawah">
+    <img src="../aset/qaizer-bulat.png" alt="">
+    <div class="q"><b>Qaizer Group</b><i>Rakan Strategik MyAngkasa Amanah Berhad</i><span>MyAngkasa Amanah Berhad ialah anak syarikat Koperasi Angkasa melalui MyAngkasa Holding Berhad.</span></div>
+    <div class="sedia">Disediakan oleh<div data-stamp="sediaNama" style="height:34px;margin-top:2px"></div>Pegawai Bertugas</div>
+  </div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section class="page">
+  <div class="hd"><img src="../aset/qaizer-bulat.png" alt=""><b>Kertas Kerja</b> · Harta Pusaka &amp; Hutang<span class="r">Qaizer × MyAngkasa</span></div>
+  <div class="ring">
+    <div class="lbl">Ringkasan Cadangan</div>
+    <div class="g">
+      <div><b>PROGRAM</b>Taklimat Pengurusan Harta Pusaka &amp; Hutang</div>
+      <div><b>ANJURAN</b>Qaizer Group, Rakan Strategik MyAngkasa Amanah Berhad</div>
+      <div><b>SASARAN</b>Semua pegawai dan kakitangan jabatan, termasuk unit &amp; cawangan di bawahnya</div>
+      <div><b>FORMAT</b>Taklimat / LADAP, kaunter info &amp; sesi kaunseling</div>
+      <div><b>TEMPOH</b>Sepanjang tahun, mengikut jadual fleksibel jabatan</div>
+      <div><b>LOKASI</b>Ruang terbuka di premis jabatan (dewan / bilik)</div>
+    </div>
+  </div>
+  <h2><span class="n">01</span>Pendahuluan</h2>
+  <p class="lead">Pengurusan harta pusaka ialah aspek kewangan yang sering diabaikan, walaupun kesannya besar kepada keluarga yang ditinggalkan.</p>
+  <div class="statbox"><b>RM90 bilion+</b><span>Anggaran harta pusaka yang tidak dituntut dan terbeku di Malaysia, kebanyakannya berpunca daripada kurang kesedaran tentang pengurusan harta selepas kematian.</span></div>
+  <p>Ramai individu tidak membuat wasiat atau hibah. Akibatnya, harta mereka terbeku atau dipertikaikan oleh waris yang tidak jelas tentang hak masing-masing, dan proses tuntutan menjadi panjang serta membebankan keluarga.</p>
+  <p>Dalam masa yang sama, komitmen hutang yang tidak diurus dengan baik boleh menjejaskan kewangan bulanan warga kerja. Hutang yang tertunggak juga perlu dijelaskan daripada harta si mati sebelum pusaka dapat diagihkan kepada waris.</p>
+  <p>MyAngkasa Amanah Berhad, anak syarikat Koperasi Angkasa melalui MyAngkasa Holding Berhad, bersama Qaizer Group berhasrat menangani isu ini melalui <b>Program Taklimat Pengurusan Harta Pusaka &amp; Hutang</b> yang khusus untuk pegawai dan kakitangan jabatan serta semua unit dan cawangan di bawahnya.</p>
+  <div class="ft"><span>Kertas Kerja Cadangan · Sulit &amp; untuk pertimbangan jabatan</span><b>02</b></div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section class="page">
+  <div class="hd"><img src="../aset/qaizer-bulat.png" alt=""><b>Kertas Kerja</b> · Harta Pusaka &amp; Hutang<span class="r">Qaizer × MyAngkasa</span></div>
+  <h2><span class="n">02</span>Objektif Program</h2>
+  <div class="obj"><span class="n">01</span><div><b>Meningkatkan kesedaran</b> tentang isu RM90 bilion harta pusaka tidak dituntut serta kepentingan wasiat dan hibah.</div></div>
+  <div class="obj"><span class="n">02</span><div><b>Memberi pengetahuan</b> tentang cara merancang pembahagian harta yang sah dan teratur.</div></div>
+  <div class="obj"><span class="n">03</span><div><b>Menyediakan bimbingan</b> dalam penyediaan wasiat dan hibah yang sah dan patuh syariah.</div></div>
+  <div class="obj"><span class="n">04</span><div><b>Membantu mengurus hutang</b> dengan memahami kesan hutang kepada kewangan keluarga dan pembahagian harta pusaka.</div></div>
+  <div class="obj"><span class="n">05</span><div><b>Membantu warga kerja</b> merancang kewangan keluarga dengan lebih sistematik dan mengelakkan harta terbeku.</div></div>
+  <div class="obj"><span class="n">06</span><div><b>Membuka peluang pendaftaran</b> wasiat dan hibah kepada semua pegawai dan kakitangan jabatan.</div></div>
+  <h2 style="margin-top:34px"><span class="n">03</span>Sasaran &amp; Format</h2>
+  <div class="two">
+    <div class="pinkbox"><h4>Sasaran Peserta</h4>Semua pegawai dan kakitangan jabatan, termasuk unit, pejabat cawangan dan fasiliti di bawah seliaan jabatan.</div>
+    <div class="pinkbox"><h4>Cadangan Format</h4><ul><li>Taklimat ringkas melalui kaunter info</li><li>Tempat: ruang terbuka (dewan atau bilik)</li></ul></div>
+  </div>
+  <div class="ft"><span>Kertas Kerja Cadangan · Sulit &amp; untuk pertimbangan jabatan</span><b>03</b></div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section class="page">
+  <div class="hd"><img src="../aset/qaizer-bulat.png" alt=""><b>Kertas Kerja</b> · Harta Pusaka &amp; Hutang<span class="r">Qaizer × MyAngkasa</span></div>
+  <h2><span class="n">04</span>Aktiviti Program</h2>
+  <div class="card"><div class="lbl">Aktiviti 1</div><h3>Taklimat / LADAP Pengurusan Harta Pusaka &amp; Hutang</h3><ul>
+    <li><b>Ceramah wasiat &amp; hibah</b> oleh pakar kewangan dan perundangan MyAngkasa Amanah Berhad dan Qaizer Group, mengupas isu harta pusaka tidak dituntut dan cara pengurusan yang betul.</li>
+    <li><b>Pengurusan hutang:</b> kesan hutang tertunggak kepada waris dan harta pusaka, serta cara mengurus komitmen hutang dengan lebih teratur.</li>
+    <li><b>Sesi soal jawab</b> tentang wasiat, hibah, hutang dan cara mengelakkan harta terbeku.</li></ul></div>
+  <div class="card"><div class="lbl">Aktiviti 2</div><h3>Kaunseling Kewangan &amp; Perancangan Harta</h3><ul>
+    <li><b>Sesi kaunseling</b> perancangan harta: nasihat pengurusan kewangan dan pembahagian harta.</li>
+    <li><b>Nasihat komitmen hutang</b> secara individu mengikut keperluan setiap peserta.</li>
+    <li><b>Bimbingan perundangan</b> tentang isu pusaka dan cara mengelakkan pertikaian dalam kalangan waris.</li></ul></div>
+  <div class="card"><div class="lbl">Aktiviti 3</div><h3>Pendaftaran Wasiat &amp; Hibah</h3><ul>
+    <li><b>Kaunter pendaftaran</b> wasiat dan hibah di lokasi program pada harga mampu milik.</li>
+    <li><b>Bantuan dokumentasi</b> oleh pegawai bertugas supaya urusan pendaftaran mudah dan cepat.</li></ul></div>
+  <div class="ft"><span>Kertas Kerja Cadangan · Sulit &amp; untuk pertimbangan jabatan</span><b>04</b></div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section class="page">
+  <div class="hd"><img src="../aset/qaizer-bulat.png" alt=""><b>Kertas Kerja</b> · Harta Pusaka &amp; Hutang<span class="r">Qaizer × MyAngkasa</span></div>
+  <h2><span class="n">05</span>Pelaksanaan Program</h2>
+  <div class="card"><div class="lbl">Jadual</div><h3>Fleksibel, sepanjang tahun</h3><ul>
+    <li>Dilaksanakan di jabatan serta semua unit dan cawangan di bawahnya, mengikut jadual yang sesuai dengan operasi.</li>
+    <li>Setiap cawangan mengadakan satu sesi taklimat dan pameran pada waktu yang dipersetujui.</li></ul></div>
+  <div class="card"><div class="lbl">Pengurusan &amp; Penyelarasan</div><h3>Diurus sepenuhnya oleh pasukan projek</h3><ul>
+    <li>Qaizer Group bekerjasama dengan pihak jabatan untuk merancang dan menyelaras program.</li>
+    <li>Pasukan pengurus projek memastikan semua aspek program berjalan lancar.</li></ul></div>
+  <div class="card"><div class="lbl">Promosi</div><h3>Saluran rasmi jabatan</h3><ul>
+    <li>Program dipromosikan melalui taklimat dan surat edaran rasmi.</li></ul></div>
+  <h2 style="margin-top:28px"><span class="n">06</span>Manfaat kepada Jabatan</h2>
+  <div class="manfaat">
+    <div><h4>Kesejahteraan warga kerja</h4><p>Warga kerja lebih tenang apabila hutang terkawal dan urusan harta keluarga sudah dirancang.</p></div>
+    <div><h4>Pengisian LADAP</h4><p>Program boleh dijalankan sebagai Latihan Dalam Perkhidmatan untuk pegawai dan kakitangan.</p></div>
+    <div><h4>Gangguan operasi minimum</h4><p>Jadual fleksibel dan format kaunter info, mengikut kesesuaian setiap unit.</p></div>
+    <div><h4>Penyampai program</h4><p>Disampaikan oleh pegawai bertugas dari Qaizer Group.</p></div>
+  </div>
+  <div class="ft"><span>Kertas Kerja Cadangan · Sulit &amp; untuk pertimbangan jabatan</span><b>05</b></div>
+</section>
+
+<!-- ============ 06 ============ -->
+<section class="page">
+  <div class="hd"><img src="../aset/qaizer-bulat.png" alt=""><b>Kertas Kerja</b> · Harta Pusaka &amp; Hutang<span class="r">Qaizer × MyAngkasa</span></div>
+  <h2><span class="n">07</span>Sokongan Diperlukan daripada Jabatan</h2>
+  <table>
+    <tr><th>PERKARA</th><th>KETERANGAN</th></tr>
+    <tr><td>Kelulusan program</td><td>Persetujuan untuk program dijalankan di jabatan serta unit dan cawangan di bawahnya.</td></tr>
+    <tr><td>Ruang pelaksanaan</td><td>Ruang terbuka seperti dewan atau bilik untuk taklimat dan kaunter info.</td></tr>
+    <tr><td>Slot masa</td><td>Tarikh dan waktu yang sesuai mengikut jadual operasi setiap unit.</td></tr>
+    <tr><td>Hebahan</td><td>Surat edaran rasmi kepada pegawai dan kakitangan.</td></tr>
+    <tr><td>Pegawai penghubung</td><td>Seorang wakil jabatan untuk penyelarasan bersama Qaizer Group.</td></tr>
+  </table>
+  <div class="kes"><img src="../aset/qaizer-bulat.png" alt=""><h3>Kesimpulan</h3>
+    <p>Pengurusan harta pusaka ialah langkah penting bagi setiap individu. Dengan lebih <b>RM90 bilion</b> harta pusaka tidak dituntut di Malaysia, kesedaran tentang wasiat dan hibah perlu dipupuk sebagai sebahagian daripada perancangan kewangan yang teratur, seiring dengan pengurusan hutang yang berhemah.</p>
+    <p style="margin:0">Program ini turut menawarkan peluang pendaftaran wasiat dan hibah pada harga mampu milik, membantu pegawai dan kakitangan merancang masa depan kewangan keluarga serta mengelakkan masalah harta terbeku selepas kematian.</p></div>
+  <div class="sign">
+    <div class="box"><img src="../aset/qaizer-bulat.png" alt=""><div class="lbl">Disediakan oleh</div>
+      <div data-stamp="tandatangan" style="height:52px;margin-top:8px;border-bottom:1px solid #999"></div>
+      <dl><dt>Nama</dt><dd data-stamp="sediaNama2" style="height:30px"></dd><dt>Jawatan</dt><dd>Pegawai Bertugas</dd><dt>Syarikat</dt><dd>Qaizer Group</dd><dt>Tarikh</dt><dd data-stamp="tarikh" style="height:16px"></dd></dl></div>
+    <div class="box"><div class="lbl">Pengesahan Jabatan</div>
+      <div class="chk"><span>Diluluskan</span><span>Tidak diluluskan</span></div>
+      <div style="height:40px;border-bottom:1px solid #999"></div>
+      <dl class="dots"><dt>Nama</dt><dd></dd><dt>Jawatan</dt><dd></dd><dt>Cop</dt><dd></dd><dt>Tarikh</dt><dd></dd></dl></div>
+  </div>
+  <div class="ft"><span>Kertas Kerja Cadangan · Sulit &amp; untuk pertimbangan jabatan</span><b>06</b></div>
+</section>
+</body></html>

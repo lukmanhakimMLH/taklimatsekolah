@@ -88,7 +88,12 @@ textarea{min-height:84px;resize:vertical}
 .surat{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px 16px;font-size:12px;line-height:1.55;box-shadow:0 2px 8px rgba(0,0,0,.06);font-family:Arial,Helvetica,sans-serif;text-align:left}
 @media(min-width:500px){.surat{text-align:justify}}
 .surat p{margin:0 0 9px}.surat ul{margin:0 0 9px;padding-left:34px}.surat li{margin-bottom:3px}
-.surat .s-kepala{margin-left:58%;margin-bottom:14px;text-align:left}
+.surat .s-top{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid #c8102e;padding-bottom:10px;margin-bottom:12px}
+.surat .s-logo{width:58px;height:58px}
+.surat .s-kepala{text-align:left;font-size:11px}
+.surat .s-tel{font-family:'Times New Roman',serif}
+.surat .s-bawah{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.surat .s-rnk{width:42%;max-width:170px}
 .surat .s-n{padding-left:26px;position:relative}.surat .s-n span{position:absolute;left:0}
 .surat .s-sign{height:60px}.surat .s-sign img{height:58px}
 .copyrow{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14px;word-break:break-word}

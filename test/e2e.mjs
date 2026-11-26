@@ -68,6 +68,8 @@ async function halaman() {
   const c = await browser.newContext({ ...devices['iPhone 13'], baseURL: BASE });
   await c.route(/gstatic\.com\/firebasejs\/10\.12\.2\/(.+)$/, r => r.fulfill({ path: path.join(VENDOR, r.request().url().split('/').pop()), contentType: 'text/javascript' }));
   await c.route(/cdnjs\.cloudflare\.com\/.*jspdf/, r => r.fulfill({ path: path.join(VENDOR, 'jspdf.umd.min.js'), contentType: 'text/javascript' }));
+  await c.route(/cdnjs\.cloudflare\.com\/.*pdf-lib/, r => r.fulfill({ path: path.join(VENDOR, 'pdf-lib.min.js'), contentType: 'text/javascript' }));
+  await c.route(/unpkg\.com\/@pdf-lib\/fontkit/, r => r.fulfill({ path: path.join(VENDOR, 'fontkit.umd.min.js'), contentType: 'text/javascript' }));
   const p = await c.newPage();
   p.on('pageerror', e => console.log('   [pageerror]', e.message));
   await p.addInitScript(() => { window.__NOSHARE = true; });
@@ -97,7 +99,7 @@ async function mohon(p, v) {
   await p.fill('#namaAgensi', v.nama); await p.waitForTimeout(1200);
   if (v.singkat) await p.fill('#namaSingkat', v.singkat);
   await p.fill('#alamat', v.alamat || 'Jalan Ismail,\n86800 Mersing, Johor.');
-  await p.fill('#telefon', '07-799 1234'); await p.fill('#pic', v.pic || 'Pengarah'); await p.fill('#emailA', v.email);
+  await p.fill('#telefon', '07-799 1234'); await p.fill('#pic', v.pic || 'Pengarah'); if (v.picNama) await p.fill('#picNama', v.picNama); if (v.panggilan) await p.click(`.seg span:text-is("${v.panggilan}")`); await p.fill('#emailA', v.email);
   await p.click('#btn-jana');
   await p.waitForURL(/#\/p\/TKL-\d+$/);
   return p.url().match(/TKL-\d+/)[0];
@@ -138,15 +140,17 @@ try {
   ok('Admin lulus ejen → ejen dapat akses dashboard');
 
   // 4. Permohonan + PDF
-  const p1 = await mohon(ali, { nama: 'Politeknik Mersing', singkat: 'Poli Mersing', email: 'poli@mersing.edu.my' });
+  const p1 = await mohon(ali, { nama: 'Politeknik Mersing', singkat: 'Poli Mersing', email: 'poli@mersing.edu.my', pic: 'Pengarah Politeknik Mersing', picNama: 'Ts. Dr. Ahmad Fauzi bin Hassan', panggilan: 'Tuan' });
   assert.equal(p1, 'TKL-0001');
   await ali.waitForSelector('.surat'); await shot(ali, '05-surat');
   const [dl] = await Promise.all([ali.waitForEvent('download'), ali.click('button:has-text("DOWNLOAD PDF")')]);
   const pdfPath = await dl.path(); const buf = fs.readFileSync(pdfPath);
   assert(buf.slice(0, 4).toString() === '%PDF' && buf.length > 3000);
-  assert.equal(dl.suggestedFilename(), 'Surat_Taklimat_Poli_Mersing.pdf');
+  assert.equal(dl.suggestedFilename(), 'Politeknik_Mersing.pdf');
+  assert.equal(execFileSync('pdfinfo', [pdfPath]).toString().match(/Pages:\s+(\d+)/)[1], '9');
+  assert(!execFileSync('pdftotext', [pdfPath, '-']).toString().includes('Semakan Gaji'));
   if (SHOTS) fs.copyFileSync(pdfPath, path.join(SHOTS, 'contoh-surat.pdf'));
-  ok(`Surat PDF dijana dalam telefon (${Math.round(buf.length / 1024)} KB)`);
+  ok(`PDF penuh (surat + kertas kerja + lampiran, 9 ms) dijana dalam telefon (${Math.round(buf.length / 1024)} KB)`);
 
   // 5. Bertindan
   await abu.goto(URL0 + '#/dashboard'); await abu.waitForSelector('a.btn:has-text("PERMOHONAN BARU")');

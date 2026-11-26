@@ -9,7 +9,7 @@ Apps mudah alih untuk ejen mohon taklimat ke agensi kerajaan & swasta.
 | Kelulusan | Ejen baru menunggu kelulusan admin. Pendaftar pertama = **Admin Utama**. |
 | Admin | Lulus / tolak, gantung + **pindah agensi**, aktif semula, tambah / buang admin, prestasi. |
 | Permohonan | Semakan **bertindan** (“MAAF, ALI SUDAH ISI … Sila cari agensi lain”); faham singkatan (Poli, PKD, SK, SMK, MD…). Dikunci oleh peraturan Firestore. |
-| Surat PDF | Dijana dalam telefon ikut templat PKD Mersing, dengan tandatangan ejen. |
+| PDF permohonan | Satu PDF (9 ms): surat berlogo + kertas kerja cadangan 6 ms (nama pegawai agensi & ejen diisi automatik) + surat sokongan MyAngkasa & ANGKASA. Tiada “Semakan Gaji” dalam tajuk & kertas kerja. |
 | Rangka email | Kepada, **CC wajib**, subjek `[TKL-xxxx]`, isi email – salin / buka apps email / Gmail. |
 | Pengesahan | Robot Google Apps Script baca Gmail pengesahan → **Disahkan** automatik; admin boleh sahkan manual. |
 | Follow up | Kali ke-1, 2, 3… + nota + peringatan. |
@@ -22,6 +22,8 @@ Apps mudah alih untuk ejen mohon taklimat ke agensi kerajaan & swasta.
 index.html, style.css, js/       – apps (dihidangkan oleh GitHub Pages)
 firebase-config.js               – TETAPAN: isi firebaseConfig & email CC
 firestore.rules                  – peraturan keselamatan (tampal di Firebase Console)
+aset/                            – logo, fon, templat kertas-kerja.pdf, lampiran.pdf
+alat/kertas-kerja.html           – sumber kertas kerja; ubah lalu jalankan `node alat/bina-kertas-kerja.mjs`
 apps-script/Kod.gs               – robot pengesahan email (Google Apps Script)
 design/                          – rangka reka bentuk (PDF)
 test/                            – ujian automatik (Firebase Emulator + Playwright)
