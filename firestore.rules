@@ -1,0 +1,126 @@
+rules_version = '2';
+// Peraturan keselamatan Firestore – Apps Taklimat Agensi
+// Tampal keseluruhan fail ini di Firebase Console → Firestore Database → Rules → Publish.
+service cloud.firestore {
+  match /databases/{db}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function path(p) { return /databases/$(db)/documents/$(p); }
+    function meDoc() { return get(/databases/$(db)/documents/users/$(request.auth.uid)); }
+    function hasMe() { return signedIn() && exists(/databases/$(db)/documents/users/$(request.auth.uid)); }
+    function isAktif() { return hasMe() && meDoc().data.status == 'aktif'; }
+    function isAdmin() { return isAktif() && meDoc().data.role in ['admin', 'admin_utama']; }
+    function isUtama() { return isAktif() && meDoc().data.role == 'admin_utama'; }
+    function isRobot() {
+      return signedIn() && exists(/databases/$(db)/documents/meta/robot)
+        && get(/databases/$(db)/documents/meta/robot).data.uid == request.auth.uid;
+    }
+    function changed() { return request.resource.data.diff(resource.data).affectedKeys(); }
+    // 45 hari tiada tindakan
+    function luput(d) {
+      return d.status in ['surat_siap', 'dah_email'] && request.time > d.lastActivity + duration.value(45, 'd');
+    }
+
+    // ---------- META ----------
+    match /meta/admin {
+      allow read: if signedIn();
+      // pengguna pertama sahaja (dokumen belum wujud) menjadi Admin Utama
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+    }
+    match /meta/robot {
+      allow read: if isAdmin() || isRobot();
+      allow write: if isUtama();
+    }
+    match /meta/counter {
+      allow read: if isAktif();
+      allow create: if isAktif() && request.resource.data.n == 1;
+      allow update: if isAktif() && request.resource.data.n == resource.data.n + 1;
+    }
+
+    // ---------- KOD EJEN (unik) ----------
+    match /kodEjen/{kod} {
+      allow read: if signedIn();
+      allow create: if signedIn() && request.resource.data.uid == request.auth.uid;
+      allow delete: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+
+    // ---------- PENGGUNA ----------
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || isAdmin() || isRobot());
+      allow create: if signedIn() && request.auth.uid == uid
+        && request.resource.data.status == 'profil'
+        && (request.resource.data.role == 'ejen'
+            || (request.resource.data.role == 'admin_utama'
+                && getAfter(/databases/$(db)/documents/meta/admin).data.uid == uid));
+      // ejen kemas kini profil sendiri
+      allow update: if signedIn() && request.auth.uid == uid && selfOk(uid);
+      // admin ubah status / peranan ejen lain (bukan Admin Utama)
+      allow update: if isAdmin() && request.auth.uid != uid
+        && resource.data.role != 'admin_utama'
+        && changed().hasOnly(['status', 'sebab', 'role', 'approvedBy', 'approvedAt', 'updatedAt'])
+        && request.resource.data.role in ['ejen', 'admin']
+        && (request.resource.data.role == resource.data.role || isUtama())
+        && (resource.data.role != 'admin' || isUtama());
+    }
+    function selfOk(uid) {
+      let d = request.resource.data;
+      let o = resource.data;
+      return d.role == o.role
+        && !changed().hasAny(['approvedBy', 'approvedAt'])
+        && (d.status == o.status
+            || (o.status in ['profil', 'ditolak'] && d.status == 'menunggu')
+            || (o.status == 'profil' && o.role == 'admin_utama' && d.status == 'aktif'))
+        && (d.status == o.status || d.status == 'menunggu' || d.status == 'aktif')
+        && (o.status != 'aktif' || d.kodEjen == o.kodEjen)
+        && (o.status != 'digantung')
+        && (d.kodEjen == null || d.kodEjen == o.kodEjen
+            || getAfter(/databases/$(db)/documents/kodEjen/$(d.kodEjen)).data.uid == uid)
+        && (!changed().hasAny(['sebab']) || d.status != o.status);
+    }
+
+    // ---------- AGENSI (kunci bertindan) ----------
+    match /agensi/{aid} {
+      allow read: if isAktif() || isRobot();
+      allow create: if isAktif() && request.resource.data.uid == request.auth.uid && request.resource.data.id == aid;
+      allow update: if isAdmin() || isRobot()
+        || (isAktif() && resource.data.uid == request.auth.uid && request.resource.data.uid == request.auth.uid)
+        || (isAktif() && request.resource.data.uid == request.auth.uid
+            && (resource.data.status in ['tak_berjaya', 'dilepaskan'] || luput(resource.data)));
+    }
+
+    // ---------- PERMOHONAN ----------
+    match /permohonan/{pid} {
+      allow read: if signedIn() && (resource.data.uid == request.auth.uid || isAdmin() || isRobot());
+      allow create: if isAktif() && request.resource.data.uid == request.auth.uid
+        && request.resource.data.status == 'surat_siap'
+        && getAfter(/databases/$(db)/documents/agensi/$(request.resource.data.agensiId)).data.pid == pid
+        && getAfter(/databases/$(db)/documents/meta/counter).data.n == int(pid.split('-')[1]);
+      allow update: if isAdmin() || isRobot();
+      allow update: if isAktif() && resource.data.uid == request.auth.uid && ownerOk();
+      // ejen lain mengambil alih agensi yang luput
+      allow update: if isAktif() && luput(resource.data)
+        && request.resource.data.status == 'dilepaskan'
+        && changed().hasOnly(['status', 'closedAt', 'log']);
+
+      match /rahsia/{x} {
+        allow read: if signedIn() && (get(/databases/$(db)/documents/permohonan/$(pid)).data.uid == request.auth.uid || isAdmin());
+        allow create: if isAktif() && getAfter(/databases/$(db)/documents/permohonan/$(pid)).data.uid == request.auth.uid;
+        allow update: if isAktif() && get(/databases/$(db)/documents/permohonan/$(pid)).data.uid == request.auth.uid;
+      }
+    }
+    function ownerOk() {
+      let d = request.resource.data;
+      let o = resource.data;
+      return d.uid == o.uid && d.norm == o.norm && d.agensiId == o.agensiId
+        && !changed().hasAny(['emailVerifiedAt', 'emailVerifiedBy', 'emailInfo', 'ejenNama', 'ejenKod'])
+        && (d.emailStatus == o.emailStatus
+            || (o.status == 'surat_siap' && d.status == 'dah_email' && d.emailStatus == 'menunggu'));
+    }
+
+    // ---------- EMAIL MASUK (ditulis robot Apps Script) ----------
+    match /emailMasuk/{id} {
+      allow read: if isAdmin();
+      allow create: if isRobot();
+    }
+  }
+}
