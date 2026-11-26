@@ -4,12 +4,12 @@
 window.TKL_CONFIG = {
   // 1. Tampal firebaseConfig dari Firebase Console → Project settings → Your apps → Web app
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: "",
+    apiKey: "AIzaSyArJhw6vkx_k3xU_dUbEHnWmdDlBvUmS9c",
+    authDomain: "qaizer-taklimat.firebaseapp.com",
+    projectId: "qaizer-taklimat",
+    storageBucket: "qaizer-taklimat.firebasestorage.app",
+    messagingSenderId: "433861844239",
+    appId: "1:433861844239:web:a856b3f6a51632bb9ff27a",
   },
 
   // 2. Email pengesahan yang WAJIB di-CC (Gmail khas yang menjalankan Apps Script)
