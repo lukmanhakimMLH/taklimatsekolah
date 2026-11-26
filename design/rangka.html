@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="ms"><head><meta charset="utf-8"><title>Rangka Apps Taklimat</title>
+<style>
+@page { size: A4 landscape; margin: 0; }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1a2233;--mute:#6b7385;--line:#d9dde6;--bg:#f3f5f9;--pri:#0f5c4a;--pri2:#e3f1ec;--gold:#c99a1e;--red:#b4382f;--red2:#fbe9e7;--blue:#2457a6;--blue2:#e6eefb;--amber:#a86b00;--amber2:#fdf2dc}
+body{font-family:"Inter","Segoe UI",Arial,sans-serif;color:var(--ink);background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:297mm;height:210mm;padding:12mm 14mm;page-break-after:always;position:relative;overflow:hidden;background:#fff}
+.page:last-child{page-break-after:auto}
+.hdr{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:10px}
+.hdr h1{font-size:20px;letter-spacing:-.3px}
+.hdr .no{font-size:11px;color:var(--mute);font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.row{display:flex;gap:18px;align-items:flex-start}
+.notes{flex:1;font-size:11.5px;line-height:1.55}
+.notes h3{font-size:12px;text-transform:uppercase;letter-spacing:.8px;color:var(--pri);margin:10px 0 4px}
+.notes h3:first-child{margin-top:0}
+.notes ul{padding-left:16px}.notes li{margin:2px 0}
+.tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px}
+/* phone */
+.phone{width:240px;height:500px;border:7px solid #1b1f27;border-radius:30px;background:var(--bg);overflow:hidden;flex:none;position:relative;font-size:10px}
+.phone .sb{height:20px;background:#fff;display:flex;justify-content:space-between;padding:4px 14px;font-size:8.5px;font-weight:700}
+.phone .top{background:var(--pri);color:#fff;padding:9px 12px;display:flex;align-items:center;gap:8px;font-weight:700;font-size:12px}
+.phone .top .bk{font-size:14px;opacity:.85}
+.phone .body{padding:10px}
+.cap{font-size:10px;font-weight:700;color:var(--mute);text-align:center;margin-top:6px;width:240px}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px;margin-bottom:8px}
+.lbl{font-size:8.5px;color:var(--mute);font-weight:600;margin-bottom:2px}
+.inp{background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 7px;font-size:9.5px;margin-bottom:7px;min-height:24px}
+.inp.err{border-color:var(--red);background:var(--red2)}
+.btn{display:block;text-align:center;padding:8px;border-radius:8px;font-weight:700;font-size:10px;color:#fff;background:var(--pri);margin-top:6px}
+.btn.o{background:#fff;color:var(--pri);border:1.5px solid var(--pri)}
+.btn.g{background:var(--pri)}.btn.r{background:var(--red)}.btn.gold{background:var(--gold)}.btn.b{background:var(--blue)}
+.two{display:flex;gap:6px}.two .btn{flex:1}
+.muted{color:var(--mute)}
+.li{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px;margin-bottom:6px}
+.li b{font-size:10px}.li .s{font-size:8.5px;color:var(--mute)}
+.pill{font-size:8px;font-weight:700;padding:2px 6px;border-radius:10px;display:inline-block}
+.p-b{background:var(--blue2);color:var(--blue)}.p-a{background:var(--amber2);color:var(--amber)}.p-g{background:var(--pri2);color:var(--pri)}.p-r{background:var(--red2);color:var(--red)}
+.flowbox{border:1.5px solid var(--ink);border-radius:10px;padding:8px 10px;font-size:11px;font-weight:700;text-align:center;background:#fff}
+.arrow{font-size:18px;color:var(--mute);align-self:center}
+.modal{position:absolute;inset:0;background:rgba(10,15,25,.45);display:flex;align-items:flex-end}
+.sheet{background:#fff;width:100%;border-radius:16px 16px 0 0;padding:12px}
+.tabs{display:flex;gap:4px;margin-bottom:8px}.tabs span{flex:1;text-align:center;font-size:8px;font-weight:700;padding:5px 2px;border-radius:6px;background:#fff;border:1px solid var(--line);color:var(--mute)}
+.tabs span.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:10px}
+.tl .it{position:relative;margin-bottom:8px}.tl .it:before{content:"";position:absolute;left:-15px;top:2px;width:8px;height:8px;border-radius:50%;background:var(--amber)}
+table{border-collapse:collapse;width:100%;font-size:10.5px}
+th,td{border:1px solid var(--line);padding:5px 7px;text-align:left;vertical-align:top}
+th{background:var(--bg)}
+</style></head><body>
+
+<!-- 1. COVER + FLOW -->
+<div class="page">
+  <div class="hdr"><h1>Rangka Apps Taklimat Agensi</h1><span class="no">Draf 1 · 26/11/2026</span></div>
+  <p style="font-size:12.5px;max-width:200mm;line-height:1.55;margin-bottom:14px">Apps untuk ejen mohon taklimat ke agensi kerajaan &amp; swasta. Ejen isi maklumat agensi, apps jana surat PDF, ejen hantar email, buat follow up, dan rekod sama ada dapat taklimat atau tak berjaya. Ramai ejen guna serentak, jadi satu agensi hanya boleh dipegang oleh <b>seorang ejen</b> sahaja.</p>
+
+  <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--pri);margin-bottom:8px">Aliran utama</div>
+  <div style="display:flex;gap:8px;align-items:stretch;margin-bottom:8px">
+    <div class="flowbox" style="flex:1">1. Dashboard<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Detail ejen + ringkasan</div></div><div class="arrow">→</div>
+    <div class="flowbox" style="flex:1;background:var(--blue2)">2. Permohonan Baru<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Isi 5 maklumat · semak bertindan</div></div><div class="arrow">→</div>
+    <div class="flowbox" style="flex:1;background:var(--blue2)">3. Surat PDF<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Download · tekan DAH EMAIL</div></div><div class="arrow">→</div>
+    <div class="flowbox" style="flex:1;background:var(--amber2)">4. Dah Email<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:3px">Follow up kali 1, 2, 3… + nota</div></div><div class="arrow">→</div>
+    <div style="flex:1.1;display:flex;flex-direction:column;gap:6px">
+      <div class="flowbox" style="background:var(--pri2)">5a. Dapat Taklimat<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:2px">Tarikh · Masa · Penceramah</div></div>
+      <div class="flowbox" style="background:var(--red2)">5b. Tak Berjaya<div class="muted" style="font-weight:400;font-size:9.5px;margin-top:2px">Sebab (pilihan)</div></div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:16px;gap:24px">
+    <div class="notes">
+      <h3>Status setiap permohonan</h3>
+      <table>
+        <tr><th>Status</th><th>Maksud</th><th>Tindakan ejen</th></tr>
+        <tr><td><span class="pill p-b">SURAT SIAP</span></td><td>Borang diisi, PDF dah dijana</td><td>Download PDF, email ke agensi, tekan <b>DAH EMAIL</b></td></tr>
+        <tr><td><span class="pill p-a">DAH EMAIL</span></td><td>Surat dah dihantar, tunggu jawapan</td><td>Tekan <b>FOLLOW UP</b> + tulis nota (berapa kali pun)</td></tr>
+        <tr><td><span class="pill p-g">DAPAT TAKLIMAT</span></td><td>Agensi setuju, ada tarikh</td><td>Isi Tarikh, Masa, Penceramah</td></tr>
+        <tr><td><span class="pill p-r">TAK BERJAYA</span></td><td>Agensi tolak / tiada jawapan</td><td>Masuk senarai Tak Berjaya</td></tr>
+      </table>
+    </div>
+    <div class="notes" style="flex:.8">
+      <h3>Peraturan bertindan</h3>
+      <ul>
+        <li>Nama agensi disemak dengan <b>semua ejen</b>, bukan ejen sendiri sahaja.</li>
+        <li>Semakan tak kira huruf besar/kecil dan jarak: <i>“Poli Mersing”</i> = <i>“POLI  MERSING”</i>.</li>
+        <li>Jika sudah wujud → mesej merah: <b>“MAAF, ALI SUDAH ISI POLI MERSING. BERTINDAN. Sila cari agensi lain.”</b></li>
+        <li>Butang Simpan dikunci sehingga nama agensi ditukar.</li>
+      </ul>
+      <h3>Peranan</h3>
+      <ul><li><b>Ejen</b> – nampak permohonan sendiri.</li><li><b>Admin</b> (cadangan) – nampak semua ejen &amp; statistik.</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2. DASHBOARD -->
+<div class="page">
+  <div class="hdr"><h1>Skrin 1 · Dashboard</h1><span class="no">Ikut lakaran asal</span></div>
+  <div class="row">
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:04</span><span>4G ▮</span></div>
+        <div class="top" style="justify-content:space-between"><span>Dashboard</span><span style="font-size:11px">☰</span></div>
+        <div class="body">
+          <div style="text-align:center;margin:4px 0 8px">
+            <div style="width:64px;height:64px;border-radius:50%;background:var(--pri2);border:3px solid var(--pri);margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:var(--pri)">LH</div>
+          </div>
+          <div class="card" style="text-align:center">
+            <div style="font-weight:800;font-size:11px">Mohamad Lukman Hakim</div>
+            <div class="s muted" style="font-size:8.5px">Ejen · Qaizer Group · 019-7784918</div>
+            <div style="display:flex;justify-content:space-around;margin-top:7px;border-top:1px solid var(--line);padding-top:6px">
+              <div><b style="font-size:13px">12</b><div class="muted" style="font-size:7.5px">Jumlah</div></div>
+              <div><b style="font-size:13px;color:var(--pri)">4</b><div class="muted" style="font-size:7.5px">Dapat</div></div>
+              <div><b style="font-size:13px;color:var(--red)">2</b><div class="muted" style="font-size:7.5px">Tak Berjaya</div></div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div class="card" style="flex:1;text-align:center;padding:8px 4px;background:var(--blue2);border-color:#c5d6f2"><div style="font-size:16px">✉</div><b style="font-size:9px">Surat</b><div class="muted" style="font-size:7.5px">Permohonan</div><div style="font-weight:800;font-size:12px;color:var(--blue)">2</div></div>
+            <div class="card" style="flex:1;text-align:center;padding:8px 4px;background:var(--amber2);border-color:#f0d9a8"><div style="font-size:16px">➤</div><b style="font-size:9px">Dah Email</b><div class="muted" style="font-size:7.5px">Tunggu</div><div style="font-weight:800;font-size:12px;color:var(--amber)">3</div></div>
+            <div class="card" style="flex:1;text-align:center;padding:8px 4px;background:#fff"><div style="font-size:16px">↻</div><b style="font-size:9px">Follow Up</b><div class="muted" style="font-size:7.5px">Perlu tindakan</div><div style="font-weight:800;font-size:12px">1</div></div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div class="card" style="flex:1;padding:7px;background:var(--pri2);border-color:#bfe0d4"><b style="font-size:9px;color:var(--pri)">✓ Dapat Taklimat</b><div class="muted" style="font-size:7.5px">4 agensi</div></div>
+            <div class="card" style="flex:1;padding:7px;background:var(--red2);border-color:#f1c9c4"><b style="font-size:9px;color:var(--red)">✕ Tak Berjaya</b><div class="muted" style="font-size:7.5px">2 agensi</div></div>
+          </div>
+          <div class="btn">+ PERMOHONAN BARU</div>
+        </div>
+      </div>
+      <div class="cap">Dashboard ejen</div>
+    </div>
+    <div style="width:200px;flex:none">
+      <img src="lakaran.png" style="width:150px;border:1px solid var(--line);border-radius:8px;display:block;margin:0 auto">
+      <div class="cap" style="width:200px">Lakaran asal</div>
+    </div>
+    <div class="notes">
+      <h3>Padanan dengan lakaran</h3>
+      <ul>
+        <li><b>Bulatan</b> → gambar / inisial ejen.</li>
+        <li><b>Kotak “Detail ejen”</b> → nama, syarikat, no. telefon + kiraan ringkas (jumlah, dapat, tak berjaya).</li>
+        <li><b>3 kotak bawah</b> → pintu masuk ke 3 senarai:
+          <ul><li><b>Surat</b> – permohonan yang PDF dah siap tapi belum email.</li><li><b>Dah Email</b> – menunggu jawapan agensi.</li><li><b>Follow Up</b> – yang patut di-follow up hari ini (cth: lebih 3 hari sejak email/follow up terakhir).</li></ul></li>
+      </ul>
+      <h3>Tambahan (cadangan)</h3>
+      <ul>
+        <li>Dua kotak kecil <b>Dapat Taklimat</b> &amp; <b>Tak Berjaya</b> untuk akses rekod akhir.</li>
+        <li>Butang besar <b>+ PERMOHONAN BARU</b> di bawah sekali.</li>
+        <li>Nombor pada setiap kotak = bilangan permohonan dalam status itu.</li>
+      </ul>
+      <h3>Soalan untuk anda</h3>
+      <ul><li>Kotak ketiga “Follow up” – betul ke maksudnya senarai yang perlu di-follow up? Atau sesuatu yang lain?</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 3. PERMOHONAN + BERTINDAN -->
+<div class="page">
+  <div class="hdr"><h1>Skrin 2 · Permohonan Baru &amp; Semakan Bertindan</h1><span class="no">Isi maklumat agensi</span></div>
+  <div class="row">
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:05</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Permohonan Baru</span></div>
+        <div class="body">
+          <div class="lbl">Nama Agensi *</div><div class="inp">Pejabat Kesihatan Daerah Mersing</div>
+          <div class="lbl">Alamat *</div><div class="inp" style="min-height:44px">Jalan Ismail,<br>86800 Mersing, Johor.</div>
+          <div class="lbl">No. Telefon *</div><div class="inp">07-799 1234</div>
+          <div class="lbl">Person In Charge (PIC) *</div><div class="inp">Pegawai Kesihatan Daerah</div>
+          <div class="lbl">Email *</div><div class="inp">pkdmersing@moh.gov.my</div>
+          <div class="pill p-g" style="margin-bottom:4px">✓ Agensi belum diambil</div>
+          <div class="btn">JANA SURAT PDF</div>
+        </div>
+      </div>
+      <div class="cap">Borang – agensi masih kosong</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:06</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Permohonan Baru</span></div>
+        <div class="body">
+          <div class="lbl">Nama Agensi *</div><div class="inp err">poli mersing</div>
+          <div style="background:var(--red2);border:1.5px solid var(--red);border-radius:8px;padding:8px;margin:-2px 0 8px">
+            <div style="font-weight:800;color:var(--red);font-size:10.5px">⚠ MAAF, ALI SUDAH ISI</div>
+            <div style="font-weight:800;color:var(--red);font-size:10px;margin:2px 0">POLITEKNIK MERSING</div>
+            <div style="font-size:8.5px;color:var(--ink)">Status: <b>BERTINDAN</b>. Diisi oleh Ali pada 20/11/2026.</div>
+            <div style="font-size:9px;font-weight:700;margin-top:4px">Sila cari agensi lain.</div>
+          </div>
+          <div class="lbl">Alamat *</div><div class="inp" style="min-height:34px;opacity:.5"></div>
+          <div class="lbl">No. Telefon *</div><div class="inp" style="opacity:.5"></div>
+          <div class="lbl">Person In Charge *</div><div class="inp" style="opacity:.5"></div>
+          <div class="lbl">Email *</div><div class="inp" style="opacity:.5"></div>
+          <div class="btn" style="background:#b9bec8">JANA SURAT PDF (dikunci)</div>
+        </div>
+      </div>
+      <div class="cap">Abu cuba isi agensi yang Ali dah ambil</div>
+    </div>
+    <div class="notes">
+      <h3>Medan wajib</h3>
+      <ul><li>Nama Agensi</li><li>Alamat</li><li>No. Telefon</li><li>Person In Charge (nama / jawatan penerima surat)</li><li>Email</li></ul>
+      <h3>Bila semakan bertindan berlaku</h3>
+      <ul>
+        <li>Semasa ejen menaip nama agensi (selepas berhenti menaip ~1 saat), dan sekali lagi semasa tekan <b>Jana Surat PDF</b>.</li>
+        <li>Semakan kali kedua penting: kalau Ali &amp; Abu tekan serentak, hanya yang pertama sampai ke server diterima.</li>
+      </ul>
+      <h3>Cara padan nama</h3>
+      <ul>
+        <li>Buang huruf besar/kecil, jarak berganda &amp; tanda baca.</li>
+        <li>Singkatan biasa disamakan: <b>Poli</b> = Politeknik, <b>PKD</b> = Pejabat Kesihatan Daerah, <b>SK</b> = Sekolah Kebangsaan, <b>SMK</b>…</li>
+        <li>Nama yang hampir sama (cth 90% serupa) → amaran kuning “Mungkin sama dengan …, teruskan?”</li>
+      </ul>
+      <h3>Soalan untuk anda</h3>
+      <ul>
+        <li>Agensi yang <b>Tak Berjaya</b> – boleh dibuka semula untuk ejen lain? Selepas berapa lama?</li>
+        <li>Perlu ada tempoh luput? (cth: Dah Email tapi tiada follow up 30 hari → agensi dilepaskan)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 4. PDF + DAH EMAIL -->
+<div class="page">
+  <div class="hdr"><h1>Skrin 3 · Surat PDF &amp; Tekan Dah Email</h1><span class="no">Status: Surat Siap</span></div>
+  <div class="row">
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:07</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Surat Permohonan</span></div>
+        <div class="body">
+          <div style="background:#fff;border:1px solid var(--line);border-radius:4px;padding:9px 9px;font-size:5.6px;line-height:1.45;height:250px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.08)">
+            <div style="text-align:right"><b>QAIZER GROUP</b><br>No. 8-1, Jalan KSB 16,<br>Taman Kota Syahbandar, 75200 Melaka.<br>Telefon : 019-7784918</div>
+            <div style="margin-top:5px">Tarikh : 26/11/2026</div>
+            <div style="margin-top:4px;background:#fff7d6">Pegawai Kesihatan Daerah,<br>Pejabat Kesihatan Daerah Mersing,<br>Jalan Ismail, 86800 Mersing, Johor.</div>
+            <div style="margin-top:4px">Tuan dan Puan,</div>
+            <div style="margin-top:3px;font-weight:700">PERMOHONAN MENGADAKAN PROGRAM TAKLIMAT PENGURUSAN HARTA PUSAKA &amp; HUTANG SERTA SEMAKAN GAJI KEPADA WARGA <span style="background:#fff7d6">PEJABAT KESIHATAN DAERAH MERSING</span></div>
+            <div style="margin-top:3px">Assalamualaikum w.b.t. diucapkan dan didoakan semoga tuan dilindungi rahmat Ilahi…</div>
+            <div style="margin-top:3px">2. Merujuk kepada perkara di atas, pihak kami ingin memohon kebenaran untuk mengadakan Program Taklimat … kepada kakitangan <span style="background:#fff7d6">Pejabat Kesihatan Daerah Mersing</span>…</div>
+            <div style="margin-top:3px">3. … Pihak tuan boleh menghubungi saya, <span style="background:#e6eefb">Mohamad Lukman Hakim bin Md Zaki</span>, di talian <span style="background:#e6eefb">019-7784918</span>…</div>
+          </div>
+          <div class="btn b" style="margin-top:9px">⬇ DOWNLOAD PDF</div>
+          <div class="btn o">↗ KONGSI / BUKA EMAIL</div>
+          <div class="btn gold">✓ DAH EMAIL</div>
+        </div>
+      </div>
+      <div class="cap">Pratonton surat</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:09</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Surat Permohonan</span></div>
+        <div class="body" style="opacity:.35"><div style="height:250px;background:#fff;border:1px solid var(--line)"></div></div>
+        <div class="modal"><div class="sheet">
+          <div style="font-weight:800;font-size:12px;margin-bottom:4px">Sahkan dah email?</div>
+          <div class="muted" style="font-size:9px;margin-bottom:8px">Pejabat Kesihatan Daerah Mersing<br>pkdmersing@moh.gov.my</div>
+          <div class="lbl">Tarikh email dihantar</div><div class="inp">26/11/2026</div>
+          <div class="lbl">Nota (pilihan)</div><div class="inp" style="min-height:34px">Hantar ke email rasmi + cc PA</div>
+          <div class="two"><div class="btn o">Batal</div><div class="btn gold">Ya, Dah Email</div></div>
+        </div></div>
+      </div>
+      <div class="cap">Pengesahan → pindah ke senarai Dah Email</div>
+    </div>
+    <div class="notes">
+      <h3>Surat PDF</h3>
+      <ul>
+        <li>Guna templat surat PKD Mersing sedia ada.</li>
+        <li><span style="background:#fff7d6;padding:0 3px">Kuning</span> = diambil dari borang (alamat, nama agensi dalam tajuk &amp; perenggan).</li>
+        <li><span style="background:#e6eefb;padding:0 3px">Biru</span> = diambil dari profil ejen (nama &amp; telefon ejen, tandatangan).</li>
+        <li>Tarikh surat = tarikh hari dijana.</li>
+        <li>Nama fail: <code>Surat_Taklimat_PKD_Mersing.pdf</code></li>
+      </ul>
+      <h3>Butang</h3>
+      <ul>
+        <li><b>Download PDF</b> – simpan ke telefon.</li>
+        <li><b>Kongsi / Buka Email</b> – buka apps email dengan PDF dilampirkan &amp; alamat agensi siap diisi (jimat masa).</li>
+        <li><b>Dah Email</b> – ejen tekan selepas betul-betul hantar. Status bertukar ke <span class="pill p-a">DAH EMAIL</span>.</li>
+      </ul>
+      <h3>Soalan untuk anda</h3>
+      <ul><li>Tajuk / objektif taklimat sentiasa sama (Harta Pusaka &amp; Hutang + Semakan Gaji)? Atau ejen boleh pilih jenis taklimat?</li>
+      <li>Setiap ejen guna nama sendiri dalam surat, kan?</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 5. DAH EMAIL + FOLLOW UP -->
+<div class="page">
+  <div class="hdr"><h1>Skrin 4 · Dah Email &amp; Follow Up</h1><span class="no">Follow up tanpa had</span></div>
+  <div class="row">
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:10</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Dah Email</span></div>
+        <div class="body">
+          <div class="inp muted">🔍 Cari agensi…</div>
+          <div class="li"><div style="display:flex;justify-content:space-between"><b>PKD Mersing</b><span class="pill p-a">Follow up ×2</span></div><div class="s">Email 26/11 · Terakhir follow up 29/11</div></div>
+          <div class="li"><div style="display:flex;justify-content:space-between"><b>SMK Mersing</b><span class="pill p-b">Belum follow up</span></div><div class="s">Email 24/11 · <span style="color:var(--red);font-weight:700">2 hari tiada tindakan</span></div></div>
+          <div class="li"><div style="display:flex;justify-content:space-between"><b>Majlis Daerah Mersing</b><span class="pill p-a">Follow up ×1</span></div><div class="s">Email 20/11 · Terakhir 23/11</div></div>
+          <div class="li"><div style="display:flex;justify-content:space-between"><b>Hospital Mersing</b><span class="pill p-b">Belum follow up</span></div><div class="s">Email 26/11</div></div>
+        </div>
+      </div>
+      <div class="cap">Senarai Dah Email</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:11</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>PKD Mersing</span></div>
+        <div class="body">
+          <div class="card" style="font-size:8.5px;line-height:1.5"><b style="font-size:10px">Pejabat Kesihatan Daerah Mersing</b><br>PIC: Pegawai Kesihatan Daerah<br>☎ 07-799 1234 · ✉ pkdmersing@moh.gov.my<br>Email dihantar: 26/11/2026</div>
+          <div style="font-weight:800;font-size:9px;margin:4px 0 6px">SEJARAH FOLLOW UP</div>
+          <div class="tl">
+            <div class="it"><b style="font-size:9px">Kali ke-2</b> <span class="muted" style="font-size:8px">· 29/11 · Telefon</span><div style="font-size:8.5px">PA kata pegawai tengah cuti, call balik Isnin.</div></div>
+            <div class="it"><b style="font-size:9px">Kali ke-1</b> <span class="muted" style="font-size:8px">· 27/11 · WhatsApp</span><div style="font-size:8.5px">Dah sampai email. Tunggu kelulusan.</div></div>
+          </div>
+          <div class="btn">+ FOLLOW UP (kali ke-3)</div>
+          <div style="border-top:1px dashed var(--line);margin:9px 0 2px"></div>
+          <div class="muted" style="font-size:8px;text-align:center">Dah ada keputusan?</div>
+          <div class="two"><div class="btn g">✓ DAPAT TAKLIMAT</div><div class="btn r">✕ TAK BERJAYA</div></div>
+        </div>
+      </div>
+      <div class="cap">Butiran + sejarah follow up</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:12</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>PKD Mersing</span></div>
+        <div class="body" style="opacity:.35"><div style="height:200px;background:#fff;border:1px solid var(--line)"></div></div>
+        <div class="modal"><div class="sheet">
+          <div style="font-weight:800;font-size:12px">Follow Up <span class="pill p-a">Kali ke-3</span></div>
+          <div class="muted" style="font-size:8.5px;margin:3px 0 8px">Nombor kali dikira automatik</div>
+          <div class="lbl">Cara</div>
+          <div class="tabs"><span class="on">Telefon</span><span>WhatsApp</span><span>Email</span><span>Jumpa</span></div>
+          <div class="lbl">Nota *</div><div class="inp" style="min-height:52px">Pegawai minta hantar semula surat, cc kepada Unit Promosi.</div>
+          <div class="lbl">Ingatkan saya (pilihan)</div><div class="inp">03/12/2026</div>
+          <div class="btn">SIMPAN FOLLOW UP</div>
+        </div></div>
+      </div>
+      <div class="cap">Tambah follow up</div>
+    </div>
+    <div class="notes">
+      <h3>Logik follow up</h3>
+      <ul>
+        <li>Setiap tekan = satu rekod baru. Kali pertama → <b>Kali ke-1</b>, seterusnya ke-2, ke-3… tiada had.</li>
+        <li>Nota wajib. Tarikh &amp; masa dicatat automatik.</li>
+        <li>Rekod lama tak boleh dipadam (jejak audit).</li>
+      </ul>
+      <h3>Keputusan</h3>
+      <ul>
+        <li>Butang <b>DAPAT TAKLIMAT</b> / <b>TAK BERJAYA</b> sentiasa ada di bawah.</li>
+        <li>Boleh tekan walaupun belum follow up (cth agensi terus balas email).</li>
+      </ul>
+      <h3>Cadangan</h3>
+      <ul><li>Label merah jika tiada tindakan &gt; X hari → muncul di kotak <b>Follow Up</b> dashboard.</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 6. DAPAT / TAK BERJAYA -->
+<div class="page">
+  <div class="hdr"><h1>Skrin 5 · Dapat Taklimat / Tak Berjaya</h1><span class="no">Keputusan akhir</span></div>
+  <div class="row">
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:13</span><span>4G ▮</span></div>
+        <div class="top" style="background:var(--pri)"><span class="bk">‹</span><span>Dapat Taklimat</span></div>
+        <div class="body">
+          <div class="card" style="background:var(--pri2);border-color:#bfe0d4;text-align:center"><div style="font-size:18px">🎉</div><b>PKD Mersing</b><div class="muted" style="font-size:8.5px">Selepas 2 kali follow up</div></div>
+          <div class="lbl">Tarikh *</div><div class="inp">📅 10/12/2026 (Khamis)</div>
+          <div class="lbl">Masa *</div><div class="inp">🕘 9:00 pagi – 11:00 pagi</div>
+          <div class="lbl">Penceramah *</div><div class="inp">Mohamad Lukman Hakim ▾</div>
+          <div class="lbl">Lokasi (pilihan)</div><div class="inp">Dewan PKD Mersing</div>
+          <div class="lbl">Anggaran peserta (pilihan)</div><div class="inp">80 orang</div>
+          <div class="btn g">SIMPAN</div>
+        </div>
+      </div>
+      <div class="cap">Borang Dapat Taklimat</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:14</span><span>4G ▮</span></div>
+        <div class="top"><span class="bk">‹</span><span>Senarai Dapat Taklimat</span></div>
+        <div class="body">
+          <div class="tabs"><span class="on">Akan datang</span><span>Selesai</span></div>
+          <div class="li" style="border-left:4px solid var(--pri)"><b>PKD Mersing</b><div class="s">📅 10/12 · 9:00 pagi · Lukman</div></div>
+          <div class="li" style="border-left:4px solid var(--pri)"><b>Politeknik Mersing</b><div class="s">📅 15/12 · 2:30 ptg · Ustaz Hafiz</div></div>
+          <div class="li" style="border-left:4px solid var(--pri)"><b>SK Air Papan</b><div class="s">📅 08/01 · 10:00 pagi · Lukman</div></div>
+        </div>
+      </div>
+      <div class="cap">Senarai Dapat Taklimat</div>
+    </div>
+    <div>
+      <div class="phone">
+        <div class="sb"><span>10:15</span><span>4G ▮</span></div>
+        <div class="top" style="background:var(--red)"><span class="bk">‹</span><span>Tak Berjaya</span></div>
+        <div class="body">
+          <div class="card"><b>Majlis Daerah Mersing</b><div class="muted" style="font-size:8.5px">Email 20/11 · 3 kali follow up</div></div>
+          <div class="lbl">Sebab (pilihan)</div>
+          <div class="tabs" style="flex-wrap:wrap"><span class="on">Ditolak</span><span>Tiada jawapan</span><span>Jadual penuh</span></div>
+          <div class="lbl">Nota</div><div class="inp" style="min-height:40px">Program kewangan luar tidak dibenarkan tahun ini.</div>
+          <div class="btn r">SAHKAN TAK BERJAYA</div>
+          <div style="font-weight:800;font-size:9px;margin:10px 0 5px">SENARAI TAK BERJAYA</div>
+          <div class="li"><b>Majlis Daerah Mersing</b><div class="s">Ditolak · 28/11</div></div>
+          <div class="li"><b>Klinik Desa Tenggaroh</b><div class="s">Tiada jawapan · 15/11</div></div>
+        </div>
+      </div>
+      <div class="cap">Tak Berjaya</div>
+    </div>
+    <div class="notes">
+      <h3>Dapat Taklimat</h3>
+      <ul><li>Wajib: <b>Tarikh, Masa, Penceramah</b> (seperti diminta).</li><li>Penceramah: pilih dari senarai ejen/penceramah, atau taip nama sendiri.</li><li>Lokasi &amp; anggaran peserta = cadangan tambahan.</li></ul>
+      <h3>Tak Berjaya</h3>
+      <ul><li>Pergi terus ke senarai Tak Berjaya.</li><li>Sebab &amp; nota pilihan, tapi berguna untuk ejen lain tahu sejarah agensi.</li></ul>
+      <h3>Soalan untuk anda</h3>
+      <ul><li>Penceramah sentiasa ejen sendiri, atau ada senarai penceramah tetap?</li><li>Perlu skrin selepas taklimat selesai (cth: bilangan hadir, hasil)?</li></ul>
+    </div>
+  </div>
+</div>
+
+<!-- 7. DATA + NEXT -->
+<div class="page">
+  <div class="hdr"><h1>Struktur Data &amp; Langkah Seterusnya</h1><span class="no">Teknikal ringkas</span></div>
+  <div class="row" style="gap:22px">
+    <div class="notes">
+      <h3>Rekod yang disimpan</h3>
+      <table>
+        <tr><th style="width:26%">Jadual</th><th>Medan</th></tr>
+        <tr><td><b>Ejen</b></td><td>nama penuh, jawatan, telefon, email, gambar, peranan (ejen/admin)</td></tr>
+        <tr><td><b>Permohonan</b></td><td>nama agensi, <i>nama agensi (dinormalkan, unik)</i>, alamat, telefon, PIC, email, ejen, status, tarikh dijana, tarikh dah email</td></tr>
+        <tr><td><b>Follow Up</b></td><td>permohonan, kali ke-N, cara, nota, tarikh/masa, tarikh ingatan</td></tr>
+        <tr><td><b>Taklimat</b></td><td>permohonan, tarikh, masa, penceramah, lokasi, peserta</td></tr>
+        <tr><td><b>Tak Berjaya</b></td><td>permohonan, sebab, nota, tarikh</td></tr>
+      </table>
+      <h3 style="margin-top:12px">Kenapa sistem “bertindan” selamat</h3>
+      <ul>
+        <li>Nama agensi yang dinormalkan disimpan dengan <b>kunci unik</b> di pangkalan data pusat.</li>
+        <li>Kalau dua ejen hantar serentak, pangkalan data hanya terima satu; yang kedua dapat mesej “MAAF, … SUDAH ISI”.</li>
+        <li>Perlu pangkalan data dalam talian (cth Supabase / Firebase) – bukan simpan dalam telefon.</li>
+      </ul>
+    </div>
+    <div class="notes" style="flex:.85">
+      <h3>Jenis apps (cadangan)</h3>
+      <ul><li><b>Web app</b> yang boleh “Add to Home Screen” di telefon – tak perlu App Store, semua ejen guna satu link.</li><li>Log masuk guna email / no. telefon.</li></ul>
+      <h3>Senarai soalan untuk anda sahkan</h3>
+      <ol style="padding-left:16px">
+        <li>Maksud kotak ketiga di dashboard – senarai Follow Up?</li>
+        <li>Agensi Tak Berjaya boleh dibuka semula untuk ejen lain?</li>
+        <li>Ada tempoh luput untuk agensi yang lama tiada tindakan?</li>
+        <li>Tajuk taklimat tetap, atau ada beberapa jenis?</li>
+        <li>Penceramah – ejen sendiri atau senarai tetap?</li>
+        <li>Perlu admin / ketua yang nampak semua ejen?</li>
+        <li>Berapa ramai ejen lebih kurang?</li>
+      </ol>
+      <h3>Langkah seterusnya</h3>
+      <ul><li>Anda semak rangka ini &amp; jawab soalan.</li><li>Saya kemas kini rangka (Draf 2).</li><li>Bila setuju, baru mula bina apps.</li></ul>
+    </div>
+  </div>
+</div>
+</body></html>
