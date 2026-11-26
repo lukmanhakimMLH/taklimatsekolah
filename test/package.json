@@ -1,0 +1,10 @@
+{
+  "name": "taklimat-ujian",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "vendor": "node vendor.mjs",
+    "test": "node vendor.mjs && cd .. && firebase emulators:exec --only auth,firestore --project demo-tkl \"node test/e2e.mjs\""
+  },
+  "devDependencies": { "firebase-tools": "^13.0.0", "playwright": "^1.40.0" }
+}
