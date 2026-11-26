@@ -1,5 +1,5 @@
 // Pakej permohonan: surat (jsPDF) + kertas kerja (templat PDF diisi dengan pdf-lib) + lampiran sokongan
-import { CFG, tarikh, toDate, esc, alamatSebaris } from './util.js';
+import { CFG, tarikh, toDate, esc, alamatSebaris, kodEmail } from './util.js';
 
 const BULAN_PENUH = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
 const tarikhPanjang = t => { const d = toDate(t) || new Date(); return `${d.getDate()} ${BULAN_PENUH[d.getMonth()]} ${d.getFullYear()}`; };
@@ -215,7 +215,7 @@ export function html(p, signature) {
 }
 
 export function rangkaEmail(p) {
-  const subjek = `[${p.id}] Permohonan Program Taklimat Pengurusan Harta Pusaka & Hutang – ${p.namaSingkat || p.namaAgensi}`;
+  const subjek = `${kodEmail(p.id)} Permohonan Program Taklimat Pengurusan Harta Pusaka & Hutang`;
   const pg = (PANGGILAN.includes(p.panggilan) ? p.panggilan : 'Tuan/Puan');
   const isi = `Assalamualaikum w.b.t. dan salam sejahtera,
 

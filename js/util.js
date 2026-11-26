@@ -33,6 +33,8 @@ export function similarity(a, b) {
 }
 
 export const kodTKL = n => 'TKL-' + String(n).padStart(4, '0');
+// Kod dalam subjek email: TKL-0001 → "QAIZER GROUP-0001"
+export const kodEmail = id => `${(CFG.syarikat || 'QAIZER GROUP').toUpperCase()}-${String(id).replace(/^TKL-/, '')}`;
 
 // Timestamp Firestore / Date / string → Date
 export function toDate(t) {
