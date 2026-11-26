@@ -13,7 +13,7 @@ window.TKL_CONFIG = {
   },
 
   // 2. Email pengesahan yang WAJIB di-CC (Gmail khas yang menjalankan Apps Script)
-  ccEmail: "sahkan@contoh.com",
+  ccEmail: "hakimmdzaki@gmail.com",
 
   // 3. Kepala surat
   syarikat: "QAIZER GROUP",
