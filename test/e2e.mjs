@@ -168,7 +168,7 @@ try {
 
   // 6. Rangka email + Dah Email
   await ali.goto(URL0 + `#/p/${p1}/email`); await ali.waitForSelector('#e-sub'); await shot(ali, '07-rangka-email');
-  assert((await ali.locator('#e-sub').textContent()).includes('[TKL-0001]'));
+  assert((await ali.locator('#e-sub').textContent()).includes('QAIZER GROUP-0001 Permohonan') && !(await ali.locator('#e-sub').textContent()).includes('–'));
   ali.once('dialog', d => d.accept());
   await ali.click('button:has-text("DAH EMAIL")'); await ali.waitForSelector('text=Menunggu pengesahan');
   await shot(ali, '08-menunggu-pengesahan');
@@ -184,7 +184,7 @@ try {
   await A.goto(URL0 + '#/admin/tetapan'); await A.fill('#ruid', robotUid); await A.click('button:has-text("SIMPAN")'); await flash(A);
   const props = { API_KEY: 'x', PROJECT_ID: PROJ, ROBOT_EMAIL: 'robot@sahkan.app', ROBOT_PASS: 'robot12345', AUTH_URL: 'http://127.0.0.1:9099/identitytoolkit.googleapis.com', FS_URL: 'http://127.0.0.1:8080/v1' };
   const gs = appsScript(props, [
-    { subjek: '[TKL-0001] Permohonan Program Taklimat…', to: 'poli@mersing.edu.my', cc: 'sahkan@contoh.com', dari: 'Ali <ali@contoh.com>', pdf: true },
+    { subjek: 'QAIZER GROUP-0001 Permohonan Program Taklimat…', to: 'poli@mersing.edu.my', cc: 'sahkan@contoh.com', dari: 'Ali <ali@contoh.com>', pdf: true },
     { subjek: 'Re: hal lain', to: 'x@y.com', cc: '', dari: 'z@z.com', pdf: false },
   ]);
   assert.equal(gs.semakEmail(), 2);

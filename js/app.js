@@ -452,7 +452,7 @@ function semakEmailHtml(p) {
     ${ok(`Ejen tekan Dah Email · ${U.tarikhMasa(p.emailMarkedAt)}`)}
     ${manual ? ok('Disahkan manual oleh admin') : `
     ${e ? ok(`Email CC diterima · ${U.tarikhMasa(e.diterima)}`) : no('Email CC diterima')}
-    ${e ? ok(`Kod [${p.id}] sepadan`) : no(`Kod [${p.id}] sepadan`)}
+    ${e ? ok(`Kod ${U.kodEmail(p.id)} sepadan`) : no(`Kod ${U.kodEmail(p.id)} sepadan`)}
     ${e ? (String(e.kepada).toLowerCase().includes(p.email) ? ok(`Dihantar kepada ${esc(p.email)}`) : bad(`Tidak dihantar kepada ${esc(p.email)}`)) : no(`Dihantar kepada ${esc(p.email)}`)}
     ${e ? (e.adaPdf ? ok('Lampiran PDF ada') : bad('Tiada lampiran PDF')) : no('Lampiran PDF ada')}`}
   </div>`;

@@ -3,7 +3,7 @@
  * Dipasang dalam akaun Gmail pengesahan (email yang wajib di-CC).
  *
  * Tugas:
- *  1. setiap 5 minit  → semakEmail(): baca email belum dibaca yang subjeknya ada [TKL-xxxx],
+ *  1. setiap 5 minit  → semakEmail(): baca email belum dibaca yang subjeknya ada "QAIZER GROUP-0001" (atau TKL-0001),
  *                        semak penerima & lampiran PDF, sahkan "Dah Email" dalam Firestore.
  *  2. setiap hari      → harian(): lepaskan agensi yang 45 hari tiada tindakan,
  *                        tandakan email yang belum di-CC selepas 24 jam.
@@ -93,7 +93,7 @@ function log_(teks) { return { teks: teks, at: new Date() }; }
 
 // ================= 1. SEMAK EMAIL =================
 function semakEmail() {
-  var threads = GmailApp.search('is:unread subject:TKL-', 0, 50);
+  var threads = GmailApp.search('is:unread {subject:"QAIZER GROUP" subject:TKL}', 0, 50);
   var n = 0;
   threads.forEach(function (t) {
     t.getMessages().forEach(function (m) {
@@ -108,8 +108,8 @@ function semakEmail() {
 
 function prosesMesej_(m) {
   var subjek = m.getSubject() || '';
-  var mt = subjek.match(/TKL-\d{1,8}/i);
-  var pid = mt ? 'TKL-' + String(Number(mt[0].slice(4))).padStart(4, '0') : null;
+  var mt = subjek.match(/(?:QAIZER\s*GROUP|TKL)\s*-\s*(\d{1,8})/i);
+  var pid = mt ? 'TKL-' + String(Number(mt[1])).padStart(4, '0') : null;
   var kepada = [m.getTo(), m.getCc()].filter(String).join(', ');
   var adaPdf = m.getAttachments().some(function (a) { return /pdf/i.test(a.getContentType()) || /\.pdf$/i.test(a.getName()); });
   var diterima = m.getDate();
